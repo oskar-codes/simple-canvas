@@ -1,15 +1,15 @@
 function setupCanvas(ctx) {
   function loop(timestamp) {
     if (lastRender === 0) init();
-    var progress = timestamp - lastRender
+    var progress = timestamp - lastRender;
   
     update(progress);
   
-    lastRender = timestamp
-    window.requestAnimationFrame(loop)
+    lastRender = timestamp;
+    window.requestAnimationFrame(loop);
   }
   
-  var lastRender = 0
+  var lastRender = 0;
   window.requestAnimationFrame(loop);
   
   /*** GLOBAL FUNCTIONS ***/
