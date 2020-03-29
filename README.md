@@ -1,7 +1,7 @@
 # simple-canvas
 Simple Canvas makes the process of interacting with an HTML canvas faster, and easier. It also sets up a frame based coding environment, which makes animation and game development using canvas an easier task.
 
-### Usage
+## Usage
 Add the simple-canvas.js file to your HTML document, like so:
 ```html
 <script type="text/javascript" src=""></script>
@@ -28,3 +28,6 @@ function update() {
   circ(x,200,20);
 }
 ```
+
+## API
+The API reference and documentation is available [here](). Please note that this library is still in active development, and may lack certain features.
