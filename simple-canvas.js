@@ -1,9 +1,19 @@
 function setupCanvas(ctx) {
   function loop(timestamp) {
-    if (lastRender === 0) init();
-    var progress = timestamp - lastRender;
+    if (lastRender === 0) {
+      try {
+        init();
+      } catch(e) {
+        // usually init is not defined
+      }
+    }
+    var progress = timestamp - lastRender
   
-    update(progress);
+    try {
+      update(progress);
+    } catch(e) {
+      // usually update is not defined
+    }
   
     lastRender = timestamp;
     window.requestAnimationFrame(loop);
