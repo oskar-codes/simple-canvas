@@ -4,22 +4,30 @@ clears the entire canvas
 ### rect(x1,y1,w,h,[color],[strokeWidth])
 draws a rectangle from x1,y1 of width w and height h using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
 ```javascript
-rect(100,100,50,30,"red",10);
-rect(20,30,100,200,"#3498db");
+rect(100,100,50,30,"red",10); // red rectangle of size 50x30 with a 10px border width
+rect(20,30,100,200,"#3498db"); // lightblue rectangle of size 100x200 with the default border width
 ```
 
 ### rectFill(x1,y1,x2,y2,[color])
 draws a filled rectangle from x1,y1 to x2,y2, using the optional color. Color is black if ommited.
 ```javascript
-rect(100,100,50,30,"red");
-rect(20,30,100,200);
+rectfill(100,100,50,30,"red"); // red filled rectangle of size 50x30
+rectfill(20,30,100,200); // filled rectangle of size 100x200 with the default color
 ```
 
 ### circ(x,y,r,[color],[strokeWidth])
 draws a circle at coordinates x,y of radius r, using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
+```javascript
+circ(100,100,20,"grey",5); // grey circle of radius 20, with a 5px border width
+circ(300,250,30); // circle of radius 30 with the default color and border width
+```
 
 ### circFill(x,y,r,[color])
 draws a filled circle at coordinates x,y of radius r, using the optional color. Color is black if ommited.
+```javascript
+circfill(100,100,25); // filled circle of radius 25, using the default color 
+circfill(20,30,10,"rgb(255,255,0)"); // yellow filled circle of radius 10
+```
 
 ### line(x1,y1,x2,y2,[color],[strokeWidth])
 draws a line from coordinates x1,y1 to x2,y2, using the optional color, and the optional strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
