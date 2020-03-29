@@ -53,15 +53,23 @@ pget(20,20) // returns "rgba(0,0,255,0)"
 ### print(text,x,y,[color],[size],[font])
 draws text at the specified coordinates (bottom left corner) using the optional color, font size, and font name. Color is black if ommited. Size is 16 if ommited. Font is sans-serif if ommited.
 ```javascript
-print("Hello World!",20,40,"red",24,"courrier") // prints "Hello World!" at 20,40 in red with a font-size of 24px and the "courier" font
-print("Simple Canvas",32,128,"rgb(255,0,255)") // prints "Simple Canvas" at 32,128 in purple with a the default font-size and the default font 
+print("Hello World!",20,40,"red",24,"courier"); // prints "Hello World!" at 20,40 in red with a font-size of 24px and the "courier" font
+print("Simple Canvas",32,128,"rgb(255,0,255)"); // prints "Simple Canvas" at 32,128 in purple with a the default font-size and the default font 
 ```
 
 ### img(src,x,y,[sx],[sy])
-draws an image from a source file at the specified x,y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image scale.
+draws an image from a source file at the specified x,y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image dimensions.
+```javascript
+img("my-image.png",0,0); // draws the "my-image.png" file at 0,0, using the source image dimensions
+img("somefile.jpeg",30,20,100,100) // draws the "somefile.jpeg" file at 30,20, and scaled to match a resolution of 100x100
+```
 
 ### btn(key)
 return a boolean value representing the pressed state of the key passed as a parameter during the current frame. Available keys are BACKSPACE, TAB, RETURN, ESC, SPACE, PAGEUP, PAGEDOWN, CTRL, SHIFT, ALT, END, HOME, LEFT, UP, RIGHT, DOWN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, and TILDA.
+```javascript
+if (btn("A")) x++ // increments the x variable when the A key is pressed
+print(btn("SPACE") ? "Hello" : "World",50,50) // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
+```
 
 ### mouse()
 returns the mouse cursor coordinates as an array \[mouseX, mouseY\], relative to the canvas position on the page.
