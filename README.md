@@ -24,7 +24,7 @@ function init() {
 }
 function update() {
   cls();
-  if (btn("Space")) x++;
+  if (btn("SPACE")) x++;
   circ(x,200,20);
 }
 ```
