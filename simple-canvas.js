@@ -70,6 +70,15 @@ function setupCanvas(ctx) {
     var data = ctx.getImageData(x,y,1,1).data;
     return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
   }
+  window.img = function(src,x,y,w,h) {
+    var img = new Image();
+    img.src = src;
+    if (!!w && !!h) {
+      ctx.drawImage(img,x,y,w,h);
+    } else {
+      ctx.drawImage(img,x,y);
+    }
+  }
   
   /*** HANDLE INPUT ***/
   var KEY = {
