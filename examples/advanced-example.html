@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Canvas advanced project example</title>
+  <style>
+    body,html,canvas{
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="100vw" height="100vh" id="game"></canvas>
+  <script type="text/javascript" src="simple-canvas.js"></script>
+  <script>
+    var canvas = document.getElementById("game");
+    var ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    setupCanvas(ctx);
+
+    function init() {
+      window.nPoints = getRandomInt(2,6);
+      window.points = [];
+      window.channel = getRandomInt(0,2);
+      window.repeat = getRandomInt(1,1);
+      for (var i=0; i<nPoints; i++) {
+        points.push({
+          x: getRandomInt(0,window.innerWidth),
+          y: getRandomInt(0,window.innerHeight),
+          s: !!getRandomInt(0,2),
+          c: i%getRandomInt(2,3)
+        });
+      }
+
+      for (var x=0; x<window.innerWidth; x++) {
+        for (var y=0; y<window.innerHeight; y++) {
+          var r = 0;
+          var g = 0;
+          var b = 0;
+          for (var i=0; i<points.length; i++) {
+            var p = points[i];
+            switch (p.c) {
+              case 0:
+                if (p.s) {
+                  r += dist(x,y,p.x,p.y)*repeat
+                } else {
+                  r += 255-dist(x,y,p.x,p.y)*repeat
+                }
+                break;
+              case 1:
+                if (p.s) {
+                  b += dist(x,y,p.x,p.y)*repeat
+                } else {
+                  b += 255-dist(x,y,p.x,p.y)*repeat
+                }
+                break;
+              case 2:
+                if (p.s) {
+                  g += dist(x,y,p.x,p.y)*repeat
+                } else {
+                  g += 255-dist(x,y,p.x,p.y)*repeat
+                }
+                break;
+            }
+          }
+          var c = `rgb(${r%255},${g%255},${b%255})`
+          pset(x,y,c);
+        }
+      }
+
+      /*for (var i=0; i<points.length; i++) {
+        var p = points[i];
+        circfill(p.x,p.y,10,"white");
+      }*/
+    }
+
+    function update() {
+      
+    }
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function dist(a,b,c,d) {
+      return Math.round(Math.sqrt((a-c)**2+(b-d)**2))
+    }
+
+    window.onkeyup = function(e) {
+      if (e.code === "Space") {
+        download();
+      }
+    }
+
+    var secondClick = false;
+    window.onclick = function() {
+      if (secondClick) {
+        secondClick = false;
+        download();
+      } else {
+        secondClick = true;
+        window.setTimeout(function(e){
+          secondClick = false;
+        },400)
+      }
+    }
+
+    function download() {
+      const a = document.createElement("a");
+        a.href = canvas.toDataURL("image/png");
+        a.setAttribute("download", "ouput.png");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</body>
+</html>
