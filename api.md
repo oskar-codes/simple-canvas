@@ -1,3 +1,6 @@
+# Simple canvas API reference
+Below are listed all the functions provided by Simple Canvas, along with a detailed description and a couple of examples for each one of them.
+
 ### cls()
 clears the entire canvas
 
