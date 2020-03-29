@@ -26,4 +26,4 @@ returns the rgba color value of the pixel located at the specified coordinates.
 draws text at the specified coordinates (bottom left corner) using the optional color, font size, and font name. Color is black if ommited. Size is 16 if ommited. Font is sans-serif if ommited.
 
 ### btn(key)
-return a boolean value representing the pressed state of the key passed as a parameter during the current frame
+return a boolean value representing the pressed state of the key passed as a parameter during the current frame. Available keys are BACKSPACE, TAB, RETURN, ESC, SPACE, PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, and TILDA.
