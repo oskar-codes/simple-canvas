@@ -6,7 +6,7 @@ Download the [simple-canvas.js](https://raw.githubusercontent.com/oskar-codes/si
 ```html
 <script type="text/javascript" src="simple-canvas.js"></script>
 ```
-Make sure that this file is included **before** your wep app's JavaScript code.
+Make sure that this file is included **before** your web app's JavaScript code.
 
 Then get a reference to your canvas and the 2D context, and finally execute setupCanvas with your context as the first parameter:
 ```javascript
