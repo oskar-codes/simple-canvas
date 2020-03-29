@@ -17,7 +17,7 @@ setupCanvas(ctx);
 
 You'll then be able to declare two functions; `init` and `update`. `init` is called when the canvas is first setup, and `update` is called every frame. Along with the update function comes the first parameter, which is the elapsed time in milliseconds since the last update call.
 
-The following example draws a circle that moves to the right when pressing the spacebar.
+The following example draws a circle that moves to the right when pressing the spacebar. It is available online [here](https://oskar-codes.github.io/simple-canvas/example.html)
 ```javascript
 function init() {
   window.x = 100;  
