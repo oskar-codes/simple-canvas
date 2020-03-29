@@ -26,7 +26,7 @@ function init() {
 function update() {
   cls();
   if (btn("SPACE")) x++;
-  circ(x,200,20,"red");
+  circ(x, 200, 20, "red");
 }
 ```
 
@@ -44,6 +44,6 @@ function init() {
 function udpate(deltaTime) {
   cls();
   if (btn("SPACE")) x += spd * deltaTime;
-  circ(x,200,20,"red");
+  circ(x, 200, 20, "red");
 }
 ```
