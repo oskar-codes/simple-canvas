@@ -35,6 +35,7 @@ The API reference and documentation is available [here](https://github.com/oskar
 ## Game development using Simple Canvas
 Simple canvas makes developing online JavaScript browser games easy, as it automatically sets up a game loop for you to use; the `update` function. However, the frame rate of that update function might not be consistent depending on your player's devices, and may cause issues where for example different players move at different speeds in your game. To solve this issue, Simple Canvas calls the `update` function with a single parameter that hold the time between the current frame and the previous one, also known as the deltaTime, that you can then use to ensure that gameplay values are stable and consistent.
 Here's an example, available online [here](https://oskar-codes.github.io/simple-canvas/example2.html):
+```javascript
 function init() {
   window.x = 100;
   window.spd = 2;
@@ -44,3 +45,4 @@ function udpate(deltaTime) {
   if (btn("SPACE")) x += spd * deltaTime;
   circ(x,200,20,"red");
 }
+```
