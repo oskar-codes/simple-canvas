@@ -21,7 +21,7 @@ You'll then be able to declare two functions; `init` and `update`. `init` is cal
 The following example draws a circle that moves to the right when pressing the spacebar. It is available online [here](https://oskar-codes.github.io/simple-canvas/example1.html).
 ```javascript
 function init() {
-  window.x = 100;  
+  window.x = 100;
 }
 function update() {
   cls();
