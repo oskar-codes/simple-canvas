@@ -4,7 +4,7 @@ Simple Canvas makes the process of interacting with an HTML canvas faster, and e
 ## Usage
 Add the simple-canvas.js file to your HTML document, like so:
 ```html
-<script type="text/javascript" src=""></script>
+<script type="text/javascript" src="https://raw.githubusercontent.com/oskar-codes/simple-canvas/master/simple-canvas.js"></script>
 ```
 
 Then get a reference to your canvas and the 2D context, and finally execute setupCanvas with your context as the first parameter:
