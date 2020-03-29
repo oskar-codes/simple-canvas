@@ -20,7 +20,9 @@
       }
       function update(deltaTime) {
         cls();
-        if (btn("SPACE")) x += spd * deltaTime;
+        if (btn("SPACE")) {
+          x += spd * deltaTime;
+        }
         circ(x, 200, 20, "red");
       }
     </script>
