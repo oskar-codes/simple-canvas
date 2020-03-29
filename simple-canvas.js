@@ -27,7 +27,7 @@ function setupCanvas(ctx) {
     try {
       return KEY[k][1];
     } catch(e) {
-      console.error(`Key ${k} is not a valid key.`);
+      console.error(`Key "${k}" is not a valid key.`);
     }
   }
   window.cls = () => ctx.clearRect(0,0,ctx.canvas.clientWidth,ctx.canvas.clientHeight);
