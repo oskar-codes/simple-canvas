@@ -3,9 +3,17 @@ clears the entire canvas
 
 ### rect(x1,y1,w,h,[color],[strokeWidth])
 draws a rectangle from x1,y1 of width w and height h using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
+```javascript
+rect(100,100,50,30,"red",10);
+rect(20,30,100,200,"#3498db");
+```
 
 ### rectFill(x1,y1,x2,y2,[color])
 draws a filled rectangle from x1,y1 to x2,y2, using the optional color. Color is black if ommited.
+```javascript
+rect(100,100,50,30,"red");
+rect(20,30,100,200);
+```
 
 ### circ(x,y,r,[color],[strokeWidth])
 draws a circle at coordinates x,y of radius r, using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
