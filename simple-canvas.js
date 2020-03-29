@@ -15,15 +15,15 @@ function setupCanvas(ctx) {
       // usually update is not defined
     }
   
-    lastRender = timestamp;
-    window.requestAnimationFrame(loop);
+    lastRender = timestamp
+    window.requestAnimationFrame(loop)
   }
   
-  var lastRender = 0;
+  var lastRender = 0
   window.requestAnimationFrame(loop);
   
   /*** GLOBAL FUNCTIONS ***/
-  window.btn = function(k) {
+  window.btn = (k) => {
     try {
       return KEY[k][1];
     } catch(e) {
@@ -100,12 +100,13 @@ function setupCanvas(ctx) {
   }
   var mouseX = 0;
   var mouseY = 0;
-  window.onmousemove = function(e) {
+  document.addEventListener('mousemove', (e) => {
     var rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left
     mouseY = e.clientY - rect.top;
-  }
-  
+  });
+  window.mousedown = () => mouseDown;
+
   /*** HANDLE INPUT ***/
   var KEY = {
     BACKSPACE: 8,
@@ -151,4 +152,11 @@ function setupCanvas(ctx) {
       }
     }
   }, false);
+  var mouseDown = false;
+  document.addEventListener('mousedown', (e) => {
+    mouseDown = true;
+  });
+  document.addEventListener('mouseup', (e) => {
+    mouseDown = false;
+  });
 }
