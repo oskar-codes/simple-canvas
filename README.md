@@ -18,7 +18,7 @@ setupCanvas(ctx);
 
 You'll then be able to declare two functions; `init` and `update`. `init` is called when the canvas is first setup, and `update` is called every frame. Along with the update function comes the first parameter, which is the elapsed time in milliseconds since the last update call.
 
-The following example draws a circle that moves to the right when pressing the spacebar. It is available online [here](https://oskar-codes.github.io/simple-canvas/example1.html).
+The following example draws a circle that moves to the right when pressing the spacebar. It is available online [here](https://oskar-codes.github.io/simple-canvas/examples/example1.html).
 ```javascript
 function init() {
   window.x = 100;
@@ -37,7 +37,7 @@ The API reference and documentation is available [here](https://github.com/oskar
 
 ## Game development using Simple Canvas
 Simple canvas makes developing online JavaScript browser games easy, as it automatically sets up a game loop for you to use; the `update` function. However, the frame rate of that update function might not be consistent depending on your player's devices, and may cause issues where for example different players move at different speeds in your game. To solve this issue, Simple Canvas calls the `update` function with a single parameter that holds the time between the current frame and the previous one, also known as the deltaTime, that you can then use to ensure that gameplay values are stable and consistent.
-Here's an example, available online [here](https://oskar-codes.github.io/simple-canvas/example2.html):
+Here's an example, available online [here](https://oskar-codes.github.io/simple-canvas/examples/example2.html):
 ```javascript
 function init() {
   window.x = 100;
