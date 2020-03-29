@@ -79,6 +79,16 @@ function setupCanvas(ctx) {
       ctx.drawImage(img,x,y);
     }
   }
+  window.mouse = function(canvas, evt) {
+    return [mouseX, mouseY];
+  }
+  var mouseX = 0;
+  var mouseY = 0;
+  window.onmousemove = function(e) {
+    var rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left
+    mouseY = e.clientY - rect.top;
+  }
   
   /*** HANDLE INPUT ***/
   var KEY = {
