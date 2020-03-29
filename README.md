@@ -30,4 +30,4 @@ function update() {
 ```
 
 ## API
-The API reference and documentation is available [here](). Please note that this library is still in active development, and may lack certain features.
+The API reference and documentation is available [here](https://github.com/oskar-codes/simple-canvas/blob/master/api.md). Please note that this library is still in active development, and may lack certain features.
