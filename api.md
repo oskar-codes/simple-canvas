@@ -19,6 +19,9 @@ draws a line from coordinates x1,y1 to x2,y2, using the optional color, and the 
 ## pset(x,y,[color])
 draws a single pixel at coordinates x,y using the optional color. Color is black if ommited.
 
+## pget(x,y)
+returns the rgba color value of the pixel located at the specified coordinates.
+
 ## print(text,x,y,[color],[size],[font])
 draws text at the specified coordinates (bottom left corner) using the optional color, font size, and font name. Color is black if ommited. Size is 16 if ommited. Font is sans-serif if ommited.
 
