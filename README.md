@@ -1,6 +1,5 @@
 # simple-canvas
-Simple Canvas makes the process of interacting with an HTML canvas faster, and easier. It also sets up a frame based coding environment,
-which makes animation and game development using canvas an easier task.
+Simple Canvas makes the process of interacting with an HTML canvas faster, and easier. It also sets up a frame based coding environment, which makes animation and game development using canvas an easier task.
 
 ### Usage
 Add the simple-canvas.js file to your HTML document, like so:
@@ -16,5 +15,16 @@ const ctx = canvas.getContext("2d");
 setupCanvas(ctx);
 ```
 
-You'll then be able to declare two functions; `init` and `update`. `init` is called when the canvas is first setup, and `update` is called
-every frame.
+You'll then be able to declare two functions; `init` and `update`. `init` is called when the canvas is first setup, and `update` is called every frame. Along with the update function comes the first parameter, which is the elapsed time in milliseconds since the last update call.
+
+The following example draws a circle moving to the right along the x axis.
+```javascript
+function init() {
+  window.x = 100;  
+}
+function update() {
+  cls();
+  x++;
+  circ(x,200,20);
+}
+```
