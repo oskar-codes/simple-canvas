@@ -73,3 +73,7 @@ print(btn("SPACE") ? "Hello" : "World",50,50) // prints "Hello" or "World" depen
 
 ### mouse()
 returns the mouse cursor coordinates as an array \[mouseX, mouseY\], relative to the canvas position on the page.
+```javascript
+print(mouse()[0] + " / " + mouse()[1],50,50) // prints the mouse coordinates
+circfill(mouse()[0],mouse()[1],20,"blue"); // draws a blue circle behind the mouse cursor
+```
