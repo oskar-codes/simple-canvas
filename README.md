@@ -39,7 +39,7 @@ Here's an example, available online [here](https://oskar-codes.github.io/simple-
 ```javascript
 function init() {
   window.x = 100;
-  window.spd = 2;
+  window.spd = 0.5;
 }
 function udpate(deltaTime) {
   cls();
