@@ -70,7 +70,7 @@ img("somefile.jpeg", 30, 20, 100, 100) // draws the "somefile.jpeg" file at 30, 
 ### btn(key)
 Return a boolean value representing the pressed state of the key passed as a parameter during the current frame. Available keys are BACKSPACE, TAB, RETURN, ESC, SPACE, PAGEUP, PAGEDOWN, CTRL, SHIFT, ALT, END, HOME, LEFT, UP, RIGHT, DOWN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, and TILDA.
 ```javascript
-if (btn("A")) x++ // increments the x variable when the A key is pressed
+if (btn("A")) x++; // increment x when the A key is being pressed
 print(btn("SPACE") ? "Hello" : "World", 50, 50) // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
 ```
 
@@ -79,4 +79,11 @@ Returns the mouse cursor coordinates as an array \[mouseX, mouseY\], relative to
 ```javascript
 print(mouse()[0] + " / " + mouse()[1], 50, 50) // prints the mouse coordinates
 circfill(mouse()[0], mouse()[1], 20, "blue"); // draws a blue circle behind the mouse cursor
+```
+
+### mousedown()
+Returns a boolean value representing wether the left mouse button is being pressed or not.
+```javascript
+if (mousedown()) x++; // increment x when the lmb is being pressed
+print(mousedown() ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the lmb is being pressed or not
 ```
