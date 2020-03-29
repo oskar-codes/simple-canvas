@@ -1,5 +1,5 @@
 ## cls()
-clears the entire screen
+clears the entire canvas
 
 ## rect(x1,y1,w,h,[color],[strokeWidth])
 draws a rectangle from x1,y1 of width w and height h using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
