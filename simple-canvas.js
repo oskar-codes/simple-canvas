@@ -23,7 +23,13 @@ function setupCanvas(ctx) {
   window.requestAnimationFrame(loop);
   
   /*** GLOBAL FUNCTIONS ***/
-  window.btn = (k) => KEY[k][1];
+  window.btn = function(k) {
+    try {
+      return KEY[k][1];
+    } catch(e) {
+      console.error(`Key ${k} is not a valid key.`);
+    }
+  }
   window.cls = () => ctx.clearRect(0,0,ctx.canvas.clientWidth,ctx.canvas.clientHeight);
   window.rect = function(a,b,c,d,e,f) {
     e = (!!e ? e : "#000000");
