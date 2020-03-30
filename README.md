@@ -2,7 +2,7 @@
 Simple Canvas makes the process of interacting with an HTML canvas faster, and easier. It also sets up a frame based coding environment, which makes animation and game development a truly easier task.
 
 ## Usage
-Download the [simple-canvas.js](https://raw.githubusercontent.com/oskar-codes/simple-canvas/master/simple-canvas.js) file and add it to your project, and include it to your HTML document, like so:
+Download the [simple-canvas.js](https://raw.githubusercontent.com/oskar-codes/simple-canvas/master/simple-canvas.js) file, add it to your project directory, and include it to your HTML document like so:
 ```html
 <script type="text/javascript" src="simple-canvas.js"></script>
 ```
