@@ -11,7 +11,7 @@ rect(100, 100, 50, 30, "red", 10); // red rectangle of size 50x30 with a 10px bo
 rect(20, 30, 100, 200, "#3498db"); // lightblue rectangle of size 100x200 with the default border width
 ```
 
-### rectFill(x1, y1, x2, y2, [color])
+### rectfill(x1, y1, x2, y2, [color])
 Draws a filled rectangle from x1, y1 to x2, y2, using the optional color. Color is black if ommited.
 ```javascript
 rectfill(100, 100, 50, 30, "red"); // red filled rectangle of size 50x30
@@ -25,7 +25,7 @@ circ(100, 100, 20, "grey", 5); // grey circle of radius 20, with a 5px border wi
 circ(300, 250, 30); // circle of radius 30 with the default color and border width
 ```
 
-### circFill(x, y, r, [color])
+### circfill(x, y, r, [color])
 Draws a filled circle at coordinates x, y of radius r, using the optional color. Color is black if ommited.
 ```javascript
 circfill(100, 100, 25); // filled circle of radius 25, using the default color 
@@ -82,7 +82,7 @@ circfill(mouse()[0], mouse()[1], 20, "blue"); // draws a blue circle behind the 
 ```
 
 ### mousedown(id)
-Returns a boolean value representing wether the specified mouse button is being pressed or not. The id represent which mouse button to record; 0 is lmb, 1 is rmb. The rmb can only be recorded after `preventcontextmenu` has been called.
+Returns a boolean value representing wether the specified mouse button is being pressed or not. The id can be either 0 (lmb), or 1 (rmb), otherwise it will return false. The rmb can only be recorded after `preventcontextmenu` has been called.
 ```javascript
 if (mousedown(0)) x++; // increment x when the lmb is being pressed
 print(mousedown(1) ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the rmb is being pressed or not
