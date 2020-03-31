@@ -105,7 +105,8 @@ function setupCanvas(ctx) {
     mouseX = e.clientX - rect.left
     mouseY = e.clientY - rect.top;
   });
-  window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? rmbDown : false));
+  window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? (rmbDown && prevContextMenus) : false));
+  window.preventcontextmenus = () => { prevContextMenus = true };
 
   /*** HANDLE INPUT ***/
   var KEY = {
@@ -154,10 +155,11 @@ function setupCanvas(ctx) {
   }, false);
   var lmbDown = false;
   var rmbDown = false;
+  var prevContextMenus = false;
   document.addEventListener('mousedown', (e) => {
     if (e.button === 0) {
       lmbDown = true;
-    } else if (e.button === 2) {
+    } else if (e.button === 2 && prevContextMenus) {
       e.preventDefault();
       rmbDown = true;
     }
