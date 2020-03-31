@@ -171,5 +171,4 @@ function setupCanvas(ctx) {
       rmbDown = false;
     }
   });
-  d
 }
