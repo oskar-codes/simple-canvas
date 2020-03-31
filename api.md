@@ -81,9 +81,17 @@ print(mouse()[0] + " / " + mouse()[1], 50, 50) // prints the mouse coordinates
 circfill(mouse()[0], mouse()[1], 20, "blue"); // draws a blue circle behind the mouse cursor
 ```
 
-### mousedown()
-Returns a boolean value representing wether the left mouse button is being pressed or not.
+### mousedown(id)
+Returns a boolean value representing wether the specified mouse button is being pressed or not. The id represent which mouse button to record; 0 is lmb, 1 is rmb. The rmb can only be recorded after `preventcontextmenu` has been called.
 ```javascript
-if (mousedown()) x++; // increment x when the lmb is being pressed
-print(mousedown() ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the lmb is being pressed or not
+if (mousedown(0)) x++; // increment x when the lmb is being pressed
+print(mousedown(1) ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the rmb is being pressed or not
+```
+
+### preventcontextmenu()
+When called, right clicking the HTML document won't trigger context menus, and the right mouse button state can be recorded using the `mousedown` function.
+```javascript
+mousedown(1); // always returns false
+preventcontextmenu(); // enable rmb recording and prevent context menus
+mousedown(1); // returns the rmb state
 ```
