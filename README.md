@@ -49,6 +49,7 @@ function udpate(deltaTime) {
   if (btn("SPACE")) {
     x += spd * deltaTime;
   }
+  print(deltaTime,30,30);
   circ(x, 200, 20, "red");
 }
 ```
