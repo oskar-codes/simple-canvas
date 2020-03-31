@@ -89,7 +89,7 @@ print(mousedown(1) ? "Hello" : "World", 50, 50); // prints "Hello" or "World" de
 ```
 
 ### preventcontextmenu()
-When called, right clicking the HTML document won't trigger context menus, and the right mouse button state can be recorded using the `mousedown` function.
+When called, right clicking the HTML document won't trigger context menus, and the right mouse button state can be recorded using the `mousedown` function. Although it can be called from anywhere in the code and at any time, it is only neccessary to call it once, usually from the `init` function.
 ```javascript
 mousedown(1); // always returns false
 preventcontextmenu(); // enable rmb recording and prevent context menus
