@@ -105,7 +105,7 @@ function setupCanvas(ctx) {
     mouseX = e.clientX - rect.left
     mouseY = e.clientY - rect.top;
   });
-  window.mousedown = () => mouseDown;
+  window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? rmbDown : false));
 
   /*** HANDLE INPUT ***/
   var KEY = {
@@ -152,11 +152,22 @@ function setupCanvas(ctx) {
       }
     }
   }, false);
-  var mouseDown = false;
+  var lmbDown = false;
+  var rmbDown = false;
   document.addEventListener('mousedown', (e) => {
-    mouseDown = true;
+    if (e.button === 0) {
+      lmbDown = true;
+    } else if (e.button === 2) {
+      e.preventDefault();
+      rmbDown = true;
+    }
   });
   document.addEventListener('mouseup', (e) => {
-    mouseDown = false;
+    if (e.button === 0) {
+      lmbDown = false;
+    } else if (e.button === 2) {
+      rmbDown = false;
+    }
   });
+  d
 }
