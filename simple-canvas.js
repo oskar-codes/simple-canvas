@@ -171,4 +171,9 @@ function setupCanvas(ctx) {
       rmbDown = false;
     }
   });
+  window.addEventListener("contextmenu", function(e) {
+    if (prevContextMenus) {
+      e.preventDefault();
+    }
+  });
 }
