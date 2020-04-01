@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simpel Canvas Platformer Example</title>
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0;
+      }
+      html {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+
+    <script src="../simple-canvas.js"></script>
+    <script>
+      var canvas = document.querySelector("canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var ctx = canvas.getContext("2d");
+
+      setupCanvas(ctx);
+
+      function init() {
+        window.x = 100;
+        window.y = canvas.height - 300;
+        window.dx = 0;
+        window.dy = 0;
+
+        window.f = 0.86;
+        window.g = 1.6;
+        window.spd = 2;
+        window.jump = 26;
+      }
+      function update() {
+        /*** GAME UPDATE ***/
+
+        // x axis movement
+        if (btn("A")) {
+          dx -= spd;
+        }
+        if (btn("D")) {
+          dx += spd;
+        }
+
+        // apply friction
+        dx *= f;
+
+        // y axis collision
+        if (pget(x+15,y+31) === "rgba(0,0,0,255)") {
+          dy = 0;
+          y = canvas.height - canvas.height / 8 - 30
+        } else {
+          dy += g;
+        }
+
+        // jump
+        if (btn("W") && pget(x+15,y+31) === "rgba(0,0,0,255)") {
+          dy -= jump;
+        }
+
+        // apply forces to player coordinates
+        x += dx;
+        y += dy;
+
+        /*** GAME RENDERING ***/
+        cls();
+
+        // background
+        rectfill(0,0,canvas.width,canvas.height,"lightblue");
+
+        // player
+        rectfill(x,y,30,30,"red");
+
+        // ground
+        rectfill(0,canvas.height - canvas.height / 8, canvas.width, canvas.height, "black");
+      }
+    </script>
+  </body>
+</html>
