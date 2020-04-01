@@ -82,9 +82,13 @@ function setupCanvas(ctx) {
     ctx.fillStyle = c;
     ctx.fillRect(x,y,1,1);
   }
-  window.pget = function(x,y) {
+  window.pget = function(x,y,t) {
     var data = ctx.getImageData(x,y,1,1).data;
-    return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
+    switch (t) {
+      case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
+      case 1: return rgba2hex(`rgba(${data[0]},${data[1]},${data[2]},${data[3]})`);
+      case 2: return [data[0],data[1],data[2],data[3]];
+    }
   }
   window.img = function(src,x,y,w,h) {
     var img = new Image();
