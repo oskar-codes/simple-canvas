@@ -47,10 +47,10 @@ pset(0, 0); // pixel at 0, 0, using the default color
 ```
 
 ### pget(x, y, type)
-Rturns the color value of the pixel located at the specified coordinates, in the color format specified by the third parameter. It can be 0 for rgba, 1 for HEX, or 2 for an array containing the rgba color values.
+Rturns the color value of the pixel located at the specified coordinates, in the color format specified by the third parameter. It can be 0 for rgba, 1 for HEX, or 2 for an array containing the rgba color values. Type is 0 if omitted.
 ```javascript
 pset(20, 20, "blue");
-pget(20, 20, 0) // returns "rgba(0,0,255,1)"
+pget(20, 20) // returns "rgba(0,0,255,1)"
 pget(20, 20, 1) // returns "#0000ffff"
 pget(20, 20, 2) // returns [0,0,255,1]
 ```
