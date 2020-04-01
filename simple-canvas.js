@@ -69,7 +69,7 @@ function setupCanvas(ctx) {
     ctx.lineWidth = s;
     ctx.stroke();
   }
-  window.print = function(t,x,y,c,s,f) {
+  window.text = function(t,x,y,c,s,f) {
     c = (!!c ? c : "#000000");
     s = (!!s ? s : 16);
     f = (!!f ? f : "sans-serif");
