@@ -97,3 +97,11 @@ mousedown(1); // always returns false
 preventcontextmenu(); // enable rmb recording and prevent context menus
 mousedown(1); // returns the rmb state
 ```
+
+### cursor(type)
+Changes the mouse cursor icon to the specified cursor icon. [Any valid CSS cursor name works](https://codepen.io/chriscoyier/full/uCwfB).
+```javascript
+cursor("crosshair"); // changes the cursor to a crosshair
+cursor("none"); // hides the cursor
+cursor("auto"); // resets to default cursor
+```
