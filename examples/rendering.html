@@ -12,6 +12,7 @@
   </style>
 </head>
 <body>
+  <p>Generating shapes...</p>
   <canvas width="100vw" height="100vh" id="game"></canvas>
   <script type="text/javascript" src="../simple-canvas.js"></script>
   <script>
@@ -21,8 +22,6 @@
     canvas.height = window.innerHeight;
 
     setupCanvas(ctx);
-    
-    text("Generating shapes...",5,20);
 
     function init() {
       window.nPoints = getRandomInt(2,6);
@@ -73,6 +72,7 @@
           pset(x,y,c);
         }
       }
+      document.querySelector("p").parentNode.removeChild(document.querySelector("p"));
     }
 
     function update() {
