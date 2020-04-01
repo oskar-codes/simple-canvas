@@ -46,11 +46,13 @@ pset(64, 128, "white"); // white pixel at 64, 128
 pset(0, 0); // pixel at 0, 0, using the default color
 ```
 
-### pget(x, y)
-Rturns the rgba color value of the pixel located at the specified coordinates.
+### pget(x, y, type)
+Rturns the color value of the pixel located at the specified coordinates, in the color format specified by the third parameter. It can be 0 for rgba, 1 for HEX, or 2 for an array containing the rgba color values. Please note that with the rgba returned values, the alpha channel is contained in a range from 0 to 255.
 ```javascript
 pset(20, 20, "blue");
-pget(20, 20) // returns "rgba(0, 0, 255, 255)"
+pget(20, 20, 0) // returns "rgba(0,0,255,255)"
+pget(20, 20, 1) // returns "#0000ffff"
+pget(20, 20, 2) // returns [0,0,255,255]
 ```
 
 ### text(text, x, y, [color], [size], [font])
