@@ -101,7 +101,7 @@ function setupCanvas(ctx) {
       ctx.drawImage(img,x,y);
     }
   }
-  window.mouse = function(canvas, evt) {
+  window.mouse = function() {
     return [mouseX, mouseY];
   }
   var mouseX = 0;
