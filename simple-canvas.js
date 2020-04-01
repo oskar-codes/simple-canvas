@@ -185,7 +185,7 @@ function setupCanvas(ctx) {
     r = r.toString(16);
     g = g.toString(16);
     b = b.toString(16);
-    a = Math.round(a * 255).toString(16);
+    a = a.toString(16);
 
     if (r.length == 1)
       r = "0" + r;
