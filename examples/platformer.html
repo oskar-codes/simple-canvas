@@ -52,7 +52,7 @@
         dx *= f;
 
         // y axis collision
-        if (pget(x+15,y+31) === "rgba(0,0,0,255)") {
+        if (pget(x+15,y+31) === "rgba(0,0,0,1)") {
           dy = 0;
           y = canvas.height - canvas.height / 8 - 30
         } else {
@@ -60,7 +60,7 @@
         }
 
         // jump
-        if (btn("W") && pget(x+15,y+31) === "rgba(0,0,0,255)") {
+        if (btn("W") && pget(x+15,y+31) === "rgba(0,0,0,1)") {
           dy -= jump;
         }
 
