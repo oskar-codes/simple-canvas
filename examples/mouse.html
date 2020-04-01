@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Canvas mouse input example</title>
+  </head>
+  <body>
+    <canvas width="800" height="600"></canvas>
+    <script type="text/javascript" src="../simple-canvas.js"></script>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+
+      setupCanvas(ctx);
+      
+      function init() {
+        preventcontextmenu();
+        window.x = 100;
+      }
+      function update() {
+        cls();
+        text("Mouse x: " + mouse()[0],5,20);
+        text("Mouse y: " + mouse()[1],5,30);
+        text("LMB: " + mousedown(0),5,40);
+        text("RMB: " + mousedown(1),5,50);
+        circ(mouse()[0], mouse()[1], 20, mousedown(0) ? "red" : "blue");
+      }
+    </script>
+  </body>
+</html>
