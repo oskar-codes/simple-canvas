@@ -86,7 +86,7 @@ function setupCanvas(ctx) {
     var data = ctx.getImageData(x,y,1,1).data;
     switch (t) {
       case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
-      case 1: return rgba2hex(`rgba(${data[0]},${data[1]},${data[2]},${data[3]})`);
+      case 1: return RGBAToHex(`rgba(${data[0]},${data[1]},${data[2]},${data[3]})`);
       case 2: return [data[0],data[1],data[2],data[3]];
     }
   }
@@ -181,25 +181,21 @@ function setupCanvas(ctx) {
     }
   });
   
-  function rgba2hex(orig) {
-    var a, isPercent,
-      rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
-      alpha = (rgb && rgb[4] || "").trim(),
-      hex = rgb ? 
-      (rgb[1] | 1 << 8).toString(16).slice(1) +
-      (rgb[2] | 1 << 8).toString(16).slice(1) +
-      (rgb[3] | 1 << 8).toString(16).slice(1) : orig;
-        if (alpha !== "") {
-          a = alpha;
-        } else {
-          a = 01;
-        }
+  function RGBAToHex(r,g,b,a) {
+    r = r.toString(16);
+    g = g.toString(16);
+    b = b.toString(16);
+    a = Math.round(a * 255).toString(16);
 
-        a = Math.round(a * 100) / 100;
-          var alpha = Math.round(a * 255);
-          var hexAlpha = (alpha + 0x10000).toString(16).substr(-2).toUpperCase();
-          hex = hex + hexAlpha;
+    if (r.length == 1)
+      r = "0" + r;
+    if (g.length == 1)
+      g = "0" + g;
+    if (b.length == 1)
+      b = "0" + b;
+    if (a.length == 1)
+      a = "0" + a;
 
-      return hex;
+    return "#" + r + g + b + a;
   }
 }
