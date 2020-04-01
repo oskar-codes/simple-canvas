@@ -2,7 +2,7 @@
 Below are listed all the functions provided by Simple Canvas, along with a detailed description and a couple of examples for each one of them.
 
 ### cls()
-Clears the entire canvas
+Clears the entire canvas.
 
 ### rect(x1, y1, w, h, [color], [strokeWidth])
 Draws a rectangle from x1, y1 of width w and height h using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
@@ -53,11 +53,11 @@ pset(20, 20, "blue");
 pget(20, 20) // returns "rgba(0, 0, 255, 0)"
 ```
 
-### print(text, x, y, [color], [size], [font])
+### text(text, x, y, [color], [size], [font])
 Draws text at the specified coordinates (bottom left corner) using the optional color, font size, and font name. Color is black if ommited. Size is 16 if ommited. Font is sans-serif if ommited.
 ```javascript
-print("Hello World!", 20, 40, "red", 24, "courier"); // prints "Hello World!" at 20, 40 in red with a font-size of 24px and the "courier" font
-print("Simple Canvas", 32, 128, "rgb(255, 0, 255)"); // prints "Simple Canvas" at 32, 128 in purple with a the default font-size and the default font 
+text("Hello World!", 20, 40, "red", 24, "courier"); // prints "Hello World!" at 20, 40 in red with a font-size of 24px and the "courier" font
+text("Simple Canvas", 32, 128, "rgb(255, 0, 255)"); // prints "Simple Canvas" at 32, 128 in purple with a the default font-size and the default font 
 ```
 
 ### img(src, x, y, [sx], [sy])
@@ -71,13 +71,13 @@ img("somefile.jpeg", 30, 20, 100, 100) // draws the "somefile.jpeg" file at 30, 
 Return a boolean value representing the pressed state of the key passed as a parameter during the current frame. Available keys are BACKSPACE, TAB, RETURN, ESC, SPACE, PAGEUP, PAGEDOWN, CTRL, SHIFT, ALT, END, HOME, LEFT, UP, RIGHT, DOWN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, and TILDA.
 ```javascript
 if (btn("A")) x++; // increment x when the A key is being pressed
-print(btn("SPACE") ? "Hello" : "World", 50, 50) // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
+text(btn("SPACE") ? "Hello" : "World", 50, 50) // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
 ```
 
 ### mouse()
 Returns the mouse cursor coordinates as an array \[mouseX, mouseY\], relative to the canvas position on the page.
 ```javascript
-print(mouse()[0] + " / " + mouse()[1], 50, 50) // prints the mouse coordinates
+text(mouse()[0] + " / " + mouse()[1], 50, 50) // prints the mouse coordinates
 circfill(mouse()[0], mouse()[1], 20, "blue"); // draws a blue circle behind the mouse cursor
 ```
 
@@ -85,7 +85,7 @@ circfill(mouse()[0], mouse()[1], 20, "blue"); // draws a blue circle behind the 
 Returns a boolean value representing wether the specified mouse button is being pressed or not. The id can be either 0 (lmb), or 1 (rmb), otherwise it will return false. The rmb can only be recorded after `preventcontextmenu` has been called.
 ```javascript
 if (mousedown(0)) x++; // increment x when the lmb is being pressed
-print(mousedown(1) ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the rmb is being pressed or not
+text(mousedown(1) ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the rmb is being pressed or not
 ```
 
 ### preventcontextmenu()
