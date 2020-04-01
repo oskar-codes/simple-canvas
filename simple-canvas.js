@@ -86,7 +86,7 @@ function setupCanvas(ctx) {
     var data = ctx.getImageData(x,y,1,1).data;
     switch (t) {
       case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
-      case 1: return RGBAToHex(`rgba(${data[0]},${data[1]},${data[2]},${data[3]})`);
+      case 1: return RGBAToHex(data[0],data[1],data[2],data[3]);
       case 2: return [data[0],data[1],data[2],data[3]];
     }
   }
