@@ -54,5 +54,5 @@ function udpate(deltaTime) {
 ```
 
 ## Examples
-- [Rendering showcase](https://oskar-codes.github.io/simple-canvas/examples/rendering.html)
-- [Platformer game prototype](https://oskar-codes.github.io/simple-canvas/examples/platformer.html)
+- [Rendering showcase](https://oskar-codes.github.io/simple-canvas/examples/rendering.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/rendering.html)\]
+- [Platformer game prototype](https://oskar-codes.github.io/simple-canvas/examples/platformer.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/platformer.html)\]
