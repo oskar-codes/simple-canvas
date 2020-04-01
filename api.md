@@ -50,7 +50,7 @@ pset(0, 0); // pixel at 0, 0, using the default color
 Rturns the rgba color value of the pixel located at the specified coordinates.
 ```javascript
 pset(20, 20, "blue");
-pget(20, 20) // returns "rgba(0, 0, 255, 0)"
+pget(20, 20) // returns "rgba(0, 0, 255, 255)"
 ```
 
 ### text(text, x, y, [color], [size], [font])
