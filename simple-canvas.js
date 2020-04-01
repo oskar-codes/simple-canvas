@@ -85,10 +85,11 @@ function setupCanvas(ctx) {
   window.pget = function(x,y,t) {
     t = (!!t ? t : 0);
     var data = ctx.getImageData(x,y,1,1).data;
+    data[3]/=255;
     switch (t) {
-      case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]/255})`;
+      case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
       case 1: return RGBAToHex(data[0],data[1],data[2],data[3]);
-      case 2: return [data[0],data[1],data[2],data[3]/255];
+      case 2: return data;
     }
   }
   window.img = function(src,x,y,w,h) {
@@ -186,7 +187,7 @@ function setupCanvas(ctx) {
     r = r.toString(16);
     g = g.toString(16);
     b = b.toString(16);
-    a = a.toString(16);
+    a = Math.round(a*255).toString(16);
 
     if (r.length == 1)
       r = "0" + r;
