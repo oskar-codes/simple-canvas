@@ -89,7 +89,7 @@ function setupCanvas(ctx) {
     switch (t) {
       case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
       case 1: return RGBAToHex(data[0],data[1],data[2],data[3]);
-      case 2: return data;
+      case 2: return [...data];
     }
   }
   window.img = function(src,x,y,w,h) {
