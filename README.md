@@ -31,7 +31,6 @@ function update() {
   circ(x, 200, 20, "red");
 }
 ```
-A bigger and more advanced showcase project is available [here](https://oskar-codes.github.io/simple-canvas/examples/advanced-example.html).
 
 ## API
 The API reference and documentation is available [here](https://github.com/oskar-codes/simple-canvas/blob/master/api.md). Please note that this library is still in active development, and may lack certain features. Feel free to make a feature requset in that case.
@@ -53,3 +52,7 @@ function udpate(deltaTime) {
   circ(x, 200, 20, "red");
 }
 ```
+
+## Examples
+- [Rendering showcase](https://oskar-codes.github.io/simple-canvas/examples/rendering.html)
+- [Platformer game prototype](https://oskar-codes.github.io/simple-canvas/examples/platformer.html)
