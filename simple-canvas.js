@@ -113,6 +113,7 @@ function setupCanvas(ctx) {
   });
   window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? (rmbDown && prevContextMenus) : false));
   window.preventcontextmenu = () => { prevContextMenus = true };
+  window.cursor = (t) => { document.body.style.cursor = t };
 
   /*** HANDLE INPUT ***/
   var KEY = {
