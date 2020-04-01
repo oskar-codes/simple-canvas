@@ -112,7 +112,7 @@ function setupCanvas(ctx) {
     mouseY = e.clientY - rect.top;
   });
   window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? (rmbDown && prevContextMenus) : false));
-  window.preventcontextmenus = () => { prevContextMenus = true };
+  window.preventcontextmenu = () => { prevContextMenus = true };
 
   /*** HANDLE INPUT ***/
   var KEY = {
