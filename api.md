@@ -99,7 +99,7 @@ mousedown(1); // returns the rmb state
 ```
 
 ### cursor(type)
-Changes the mouse cursor icon to the specified cursor icon. [Any valid CSS cursor name works](https://codepen.io/chriscoyier/full/uCwfB).
+Changes the mouse cursor icon to the specified cursor icon. [Any valid CSS cursor name works](https://codepen.io/chriscoyier/full/uCwfB). Type is auto if omitted.
 ```javascript
 cursor("crosshair"); // changes the cursor to a crosshair
 cursor("none"); // hides the cursor
