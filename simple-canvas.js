@@ -78,11 +78,12 @@ function setupCanvas(ctx) {
     ctx.fillText(t,x,y);
   }
   window.pset = function(x,y,c) {
-    c = (!!c ? c : "#000000")
+    c = (!!c ? c : "#000000");
     ctx.fillStyle = c;
     ctx.fillRect(x,y,1,1);
   }
   window.pget = function(x,y,t) {
+    t = (!!t ? t : 0);
     var data = ctx.getImageData(x,y,1,1).data;
     switch (t) {
       case 0: return `rgba(${data[0]},${data[1]},${data[2]},${data[3]})`;
