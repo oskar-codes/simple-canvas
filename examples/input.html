@@ -21,13 +21,13 @@
       function update() {
         cls();
         
+        // mouse coordinates and mouse buttons
         text("Mouse x: " + mouse()[0],5,20);
         text("Mouse y: " + mouse()[1],5,35);
         text("LMB: " + mousedown(0),5,50);
         text("RMB: " + mousedown(1),5,65);
         
-        (mousedown(1) ? circfill : circ)(mouse()[0], mouse()[1], 20, mousedown(0) ? "red" : "blue");
-        
+        // WASD
         (btn("W") ? rectfill : rect)(60,100,30,30,"#a00");
         text("W",63,127,btn("W") ? "white" : "#a00");
         
@@ -40,7 +40,11 @@
         (btn("D") ? rectfill : rect)(101,133,30,30,"#a00");
         text("D",104,160,btn("D") ? "white" : "#a00");
         
+        // All pressed keys
         text("Pressed keys: " + btn().join(", "),30,200);
+        
+        // Mouse circle
+        (mousedown(1) ? circfill : circ)(mouse()[0], mouse()[1], 20, mousedown(0) ? "red" : "blue");
       }
     </script>
   </body>
