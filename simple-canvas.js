@@ -112,7 +112,7 @@ function setupCanvas(ctx) {
       img.setAttribute("data-w",w);
       img.setAttribute("data-h",h);
       if (q) {
-        ctx.drawImage(src,x,y,w,h);
+        ctx.drawImage(img,x,y,w,h);
       } else {
         img.onload = function() {
           ctx.drawImage(this,
@@ -124,7 +124,7 @@ function setupCanvas(ctx) {
       }
     } else {
       if (q) {
-        ctx.drawImage(src,x,y);
+        ctx.drawImage(img,x,y);
       } else {
         img.onload = function() {
           ctx.drawImage(this,
