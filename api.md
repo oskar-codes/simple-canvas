@@ -87,10 +87,10 @@ text(mouse()[0] + " / " + mouse()[1], 50, 50) // prints the mouse coordinates
 circfill(mouse()[0], mouse()[1], 20, "blue"); // draws a blue circle behind the mouse cursor
 ```
 
-### mousedown(id)
-Returns a boolean value representing wether the specified mouse button is being pressed or not. The id can be either 0 (lmb), or 1 (rmb), otherwise it will return false. The rmb can only be recorded after `preventcontextmenu` has been called.
+### mousedown([id])
+Returns a boolean value representing wether the specified mouse button is being pressed or not. The id can be either 0 (lmb), or 1 (rmb), otherwise it will return false. The rmb can only be recorded after `preventcontextmenu` has been called. Id is 0 if omitted.
 ```javascript
-if (mousedown(0)) x++; // increment x when the lmb is being pressed
+if (mousedown()) x++; // increment x when the lmb is being pressed
 text(mousedown(1) ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the rmb is being pressed or not
 ```
 
