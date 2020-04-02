@@ -118,7 +118,7 @@ function setupCanvas(ctx) {
   var mouseX = 0;
   var mouseY = 0;
   document.addEventListener('mousemove', (e) => {
-    var rect = canvas.getBoundingClientRect();
+    var rect = ctx.canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left
     mouseY = e.clientY - rect.top;
   });
