@@ -75,7 +75,7 @@ If key is omitted, an array of currently pressed keys is returned. Please note t
 ```javascript
 if (btn("A")) x++; // increment x when the A key is being pressed
 text(btn("SPACE") ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
-text("Pressed keys: " + btn().join(", "), 50, 50); // could return something like ["SPACE","FOUR","A","W"]
+text("Pressed keys: " + btn().join(", "), 50, 50); // could print something like "Pressed keys: SPACE, FOUR, A, W"
 ```
 
 ### mouse()
