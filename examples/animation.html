@@ -19,9 +19,9 @@
       }
       function update(deltaTime) {
         cls();
+        if (frame >= 10) frame = 0;
         img("frames/" + Math.floor(frame) + ".png",50,50);
         frame += deltaTime / 250;
-        if (frame > 9) frame = 0;
         text(frame,20,20)
       }
     </script>
