@@ -63,7 +63,7 @@ text("Simple Canvas", 32, 128, "rgb(255, 0, 255)"); // prints "Simple Canvas" at
 ```
 
 ### img(src, x, y, [sx], [sy])
-Draws an image from a source file at the specified x, y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image dimensions.
+Draws an image from a source file at the specified x, y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image dimensions. Flickering may occur if the user isn't focused on the HTML document, because the device's performance isn't targeted at the canvas.
 ```javascript
 img("my-image.png", 0, 0); // draws the "my-image.png" file at 0, 0, using the source image dimensions
 img("somefile.jpeg", 30, 20, 100, 100) // draws the "somefile.jpeg" file at 30, 20, and scaled to match a resolution of 100x100
