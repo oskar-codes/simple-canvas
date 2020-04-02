@@ -19,7 +19,7 @@
       }
       function update(deltaTime) {
         cls();
-        img("/frames/" + Math.floor(frame) + ".png",50,50);
+        img("frames/" + Math.floor(frame) + ".png",50,50);
         frame += deltaTime / 20;
         if (frame > 9) frame = 0;
       }
