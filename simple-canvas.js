@@ -24,10 +24,21 @@ function setupCanvas(ctx) {
   
   /*** GLOBAL FUNCTIONS ***/
   window.btn = (k) => {
-    try {
-      return KEY[k][1];
-    } catch(e) {
-      console.error(`Key "${k}" is not a valid key.`);
+    if (!!k) {
+      try {
+        return KEY[k][1];
+      } catch(e) {
+        console.error(`Key "${k}" is not a valid key.`);
+      }
+    } else {
+      var arr = [];
+      var keys = Object.keys(KEY);
+      for (var i = 0; i<keys.length; i++) {
+        if (KEY[keys[i]][1]) {
+          arr.push(keys[i]);
+        }
+      }
+      return arr;
     }
   }
   window.cls = () => ctx.clearRect(0,0,ctx.canvas.clientWidth,ctx.canvas.clientHeight);
