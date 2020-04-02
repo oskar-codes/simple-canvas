@@ -145,7 +145,7 @@ function setupCanvas(ctx) {
     mouseX = e.clientX - rect.left
     mouseY = e.clientY - rect.top;
   });
-  window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? (rmbDown && prevContextMenus) : false));
+  window.mousedown = (id) => (id === 0 ? lmbDown : (id === 1 ? (rmbDown && prevContextMenus) : lmbDown));
   window.preventcontextmenu = () => { prevContextMenus = true; }
   window.cursor = (t) => {
     t = (!!t ? t : "auto");
