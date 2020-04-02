@@ -71,9 +71,11 @@ img("somefile.jpeg", 30, 20, 100, 100) // draws the "somefile.jpeg" file at 30, 
 
 ### btn(key)
 Return a boolean value representing the pressed state of the key passed as a parameter during the current frame. Available keys are BACKSPACE, TAB, RETURN, ESC, SPACE, PAGEUP, PAGEDOWN, CTRL, SHIFT, ALT, END, HOME, LEFT, UP, RIGHT, DOWN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, and TILDA.
+If key is omitted, an array of currently pressed keys is returned.
 ```javascript
 if (btn("A")) x++; // increment x when the A key is being pressed
-text(btn("SPACE") ? "Hello" : "World", 50, 50) // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
+text(btn("SPACE") ? "Hello" : "World", 50, 50); // prints "Hello" or "World" depending on wether the spacebar is being pressed or not 
+text("Pressed keys: " + btn().join(", "), 50, 50); // could return something like ["SPACE","FOUR","A","W"]
 ```
 
 ### mouse()
