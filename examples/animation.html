@@ -20,7 +20,7 @@
       function update(deltaTime) {
         cls();
         img("frames/" + Math.floor(frame) + ".png",50,50);
-        frame += deltaTime / 20;
+        frame += deltaTime / 100;
         if (frame > 9) frame = 0;
       }
     </script>
