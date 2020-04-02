@@ -106,12 +106,27 @@ function setupCanvas(ctx) {
   window.img = function(src,x,y,w,h) {
     var img = new Image();
     img.src = src;
+    img.setAttribute("data-x",x);
+    img.setAttribute("data-y",y);
     if (!!w && !!h) {
-      ctx.drawImage(img,x,y,w,h);
+      img.setAttribute("data-w",w);
+      img.setAttribute("data-h",h);
+      img.onload = function() {
+        ctx.drawImage(this,
+                      attr(this,"x"),
+                      attr(this,"y"),
+                      attr(this,"w"),
+                      attr(this,"h"));
+      }
     } else {
-      ctx.drawImage(img,x,y);
+      img.onload = function() {
+        ctx.drawImage(this,
+                      attr(this,"x"),
+                      attr(this,"y"));
+      }
     }
   }
+  const attr = (e,n) => parseInt(e.getAttribute("data-"+n));
   window.mouse = function() {
     return [mouseX, mouseY];
   }
