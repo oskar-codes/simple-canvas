@@ -103,7 +103,7 @@ function setupCanvas(ctx) {
       case 2: return [...data];
     }
   }
-  window.img = function(src,x,y,w,h) {
+  window.img = function(src,x,y,q,w,h) {
     var img = new Image();
     img.src = src;
     img.setAttribute("data-x",x);
@@ -111,18 +111,26 @@ function setupCanvas(ctx) {
     if (!!w && !!h) {
       img.setAttribute("data-w",w);
       img.setAttribute("data-h",h);
-      img.onload = function() {
-        ctx.drawImage(this,
-                      attr(this,"x"),
-                      attr(this,"y"),
-                      attr(this,"w"),
-                      attr(this,"h"));
+      if (q) {
+        ctx.drawImage(src,x,y,w,h);
+      } else {
+        img.onload = function() {
+          ctx.drawImage(this,
+                        attr(this,"x"),
+                        attr(this,"y"),
+                        attr(this,"w"),
+                        attr(this,"h"));
+        }
       }
     } else {
-      img.onload = function() {
-        ctx.drawImage(this,
-                      attr(this,"x"),
-                      attr(this,"y"));
+      if (q) {
+        ctx.drawImage(src,x,y);
+      } else {
+        img.onload = function() {
+          ctx.drawImage(this,
+                        attr(this,"x"),
+                        attr(this,"y"));
+        }
       }
     }
   }
