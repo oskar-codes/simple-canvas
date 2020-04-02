@@ -62,14 +62,16 @@ text("Hello World!", 20, 40, "red", 24, "courier"); // prints "Hello World!" at 
 text("Simple Canvas", 32, 128, "rgb(255, 0, 255)"); // prints "Simple Canvas" at 32, 128 in purple with a the default font-size and the default font 
 ```
 
-### img(src, x, y, [sx], [sy])
+### img(src, x, y, [quickLoading], [sx], [sy])
 Draws an image from a source file at the specified x, y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image dimensions. There might be a slight delay between the function call and the actual drawing when the image is loaded for the first time.
+The quickLoading parameter is a boolean value specifying wether the canvas context should immediately draw the image without waiting for it to load. Set it to false for static images, or true for quick images that are for example in the `update` function. QuickLoading is false if omitted.
 ```javascript
 img("my-image.png", 0, 0); // draws the "my-image.png" file at 0, 0, using the source image dimensions
-img("somefile.jpeg", 30, 20, 100, 100) // draws the "somefile.jpeg" file at 30, 20, and scaled to match a resolution of 100x100
+img("somefile.jpeg", 30, 20, false, 100, 100); // draws the "somefile.jpeg" file at 30, 20, scaled to match a resolution of 100x100, and without quick loading
+img("frame.png", 50, 100, true); // draws the "frame.png" file at 50,100, using quick loading
 ```
 
-### btn(key)
+### btn([key])
 Return a boolean value representing the pressed state of the key passed as a parameter during the current frame. Available keys are BACKSPACE, TAB, RETURN, ESC, SPACE, PAGEUP, PAGEDOWN, CTRL, SHIFT, ALT, END, HOME, LEFT, UP, RIGHT, DOWN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, and TILDA.
 If key is omitted, an array of currently pressed keys is returned. Please note that `btn` might not record additional keys when approximately 7+ keys are already being pressed.
 ```javascript
@@ -100,7 +102,7 @@ preventcontextmenu(); // enable rmb recording and prevent context menus
 mousedown(1); // returns the rmb state
 ```
 
-### cursor(type)
+### cursor([type])
 Sets the mouse cursor icon to the specified cursor icon. [Any valid CSS cursor name works](https://codepen.io/chriscoyier/full/uCwfB). Type is auto if omitted.
 ```javascript
 cursor("crosshair"); // changes the cursor to a crosshair
