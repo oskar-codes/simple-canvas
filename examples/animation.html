@@ -18,10 +18,11 @@
         window.frame = 0;
       }
       function update(deltaTime) {
-        cls();
-        if (frame >= 10) frame = 0;
-        img("frames/" + Math.floor(frame) + ".png",50,50);
         frame += deltaTime / 70;
+        if (frame >= 10) frame = 0;
+        
+        cls();
+        img("frames/" + Math.floor(frame) + ".png",50,50);
         text(Math.floor(frame),20,20)
       }
     </script>
