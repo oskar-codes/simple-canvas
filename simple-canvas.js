@@ -103,38 +103,43 @@ function setupCanvas(ctx) {
       case 2: return [...data];
     }
   }
-  window.img = function(src,x,y,q,w,h) {
-    var img = new Image();
-    img.src = src;
-    img.setAttribute("data-x",x);
-    img.setAttribute("data-y",y);
-    if (!!w && !!h) {
-      img.setAttribute("data-w",w);
-      img.setAttribute("data-h",h);
-      if (q) {
+  window.img = function(src,x,y,w,h) {
+    var img = document.querySelector("img[src='"+ src +"']")
+
+    if (!!img) {
+      if (!!w && !!h) {
         ctx.drawImage(img,x,y,w,h);
       } else {
-        img.onload = function() {
-          ctx.drawImage(this,
-                        attr(this,"x"),
-                        attr(this,"y"),
-                        attr(this,"w"),
-                        attr(this,"h"));
-        }
+        ctx.drawImage(img,x,y);
       }
     } else {
-      if (q) {
-        ctx.drawImage(img,x,y);
-      } else {
-        img.onload = function() {
-          ctx.drawImage(this,
-                        attr(this,"x"),
-                        attr(this,"y"));
+      var img = new Image();
+      img.src = src;
+      img.setAttribute("data-x",x);
+      img.setAttribute("data-y",y);
+      img.setAttribute("data-w",w);
+      img.setAttribute("data-h",h);
+      
+      var container = document.getElementById("simple-canvas-image-cache-container");
+      if (!container) {
+        container = document.createElement("div");
+        container.setAttribute("id","simple-canvas-image-cache-container");
+        container.style.display = "none";
+        document.body.appendChild(container);
+      }
+      container.appendChild(img);
+      img.onload = function() {
+        var w = attr(this,"w");
+        var h = attr(this,"h");
+        if (!!w && !!h) {
+          ctx.drawImage(this,parseInt(attr(this,"x")),parseInt(attr(this,"y")),w,h);
+        } else {
+          ctx.drawImage(this,parseInt(attr(this,"x")),parseInt(attr(this,"y")));
         }
       }
     }
   }
-  const attr = (e,n) => parseInt(e.getAttribute("data-"+n));
+  const attr = (e,n) => e.getAttribute("data-"+n) === undefined ? undefined : parseInt(e.getAttribute("data-"+n));
   window.mouse = function() {
     return [mouseX, mouseY];
   }
