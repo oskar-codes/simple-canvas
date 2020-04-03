@@ -41,7 +41,7 @@ function setupCanvas(ctx) {
       return arr;
     }
   }
-  window.cls = () => ctx.clearRect(0,0,ctx.canvas.clientWidth,ctx.canvas.clientHeight);
+  window.cls = (c) => !!c ? rectfill(0,0,ctx.canvas.width,ctx.canvas.height,c) : ctx.clearRect(0,0,ctx.canvas.clientWidth,ctx.canvas.clientHeight);
   window.rect = function(a,b,c,d,e,f) {
     e = (!!e ? e : "#000000");
     f = (!!f ? f : 1);
