@@ -1,8 +1,12 @@
 # Simple canvas API reference
 Below are listed all the functions provided by Simple Canvas, along with a detailed description and a couple of examples for each one of them.
 
-### cls()
-Clears the entire canvas.
+### cls([color])
+Clears the entire canvas, using the optional color. Color is transparent if omitted.
+```javascript
+cls(); // clears the entire screen and makes it transparent
+cls("red"); // fills the entire screen in red
+```
 
 ### rect(x1, y1, w, h, [color], [strokeWidth])
 Draws a rectangle from x1, y1 of width w and height h using the optional color and strokeWidth. Color is black if ommited. StrokeWidth is 1 if ommited.
