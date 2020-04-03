@@ -1,1 +1,2 @@
 - Add sfx function
+- try to store image caches in an array, instead of placing them in the DOM
