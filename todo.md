@@ -1,2 +1,1 @@
-- Save images drawn using `img` on the document to prevent flickering when they are loaded again
 - Add sfx function
