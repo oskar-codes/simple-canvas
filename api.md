@@ -115,7 +115,7 @@ mousedown(1); // returns the rmb state
 Returns the distance that has been scrolled since the previous frame, on the specified axis (0 = y axis, 1 = x axis).
 ```javascript
 y += getscrolldelta(0); // increment y variable by the scrolldelta on the y axis
-circ(100, y, 20); draw a circle that moves when the user scrolls
+circ(100, y, 20); // draw a circle that moves when the user scrolls
 ```
 
 ### cursor([type])
