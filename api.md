@@ -74,7 +74,7 @@ textwidth("Simple Canvas", 20, "courier"); // returns approximately 156
 ```
 
 ### img(src, x, y, [sx], [sy])
-Draws an image from a source file at the specified x, y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image dimensions. There might be a slight delay between the function call and the actual drawing when the image is loaded for the first time.
+Draws an image from a source file at the specified x, y coordinates. If sx and sy are specified, it is scaled to match that size in pixels. Otherwise it is drawn using the source image dimensions. Please note that there might be a slight delay between the function call and the actual drawing when the image is loaded for the first time.
 ```javascript
 img("my-image.png", 0, 0); // draws the "my-image.png" file at 0, 0, using the source image dimensions
 img("somefile.jpeg", 30, 20, 100, 100); // draws the "somefile.jpeg" file at 30, 20, scaled to match a resolution of 100x100
