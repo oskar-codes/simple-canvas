@@ -4,7 +4,9 @@ function setupCanvas(ctx) {
       try {
         init();
       } catch(e) {
-        // usually init is not defined
+        if (!e.toString().includes("init is not defined")) {
+          throw e;
+        }
       }
     }
     var progress = timestamp - lastRender
@@ -12,11 +14,16 @@ function setupCanvas(ctx) {
     try {
       update(progress);
     } catch(e) {
-      // usually update is not defined
+      if (!e.toString().includes("update is not defined")) {
+        throw e;
+      }
     }
   
     lastRender = timestamp
     window.requestAnimationFrame(loop)
+
+    xScroll = 0;
+    yScroll = 0;
   }
   
   var lastRender = 0
@@ -88,6 +95,13 @@ function setupCanvas(ctx) {
     ctx.fillStyle = c;
     ctx.fillText(t,x,y);
   }
+  window.textwidth = function(t, s, f) {
+    s = (!!s ? s : 16);
+    f = (!!f ? f : "sans-serif");
+    ctx.font = s + "px " + f;
+    var metrics = ctx.measureText(t);
+    return metrics.width;
+  }
   window.pset = function(x,y,c) {
     c = (!!c ? c : "#000000");
     ctx.fillStyle = c;
@@ -156,6 +170,7 @@ function setupCanvas(ctx) {
     t = (!!t ? t : "auto");
     document.documentElement.style.cursor = t;
   }
+  window.getscrolldelta = (d) => d === 0 ? yScroll : (d === 1 ? xScroll : 0);
 
   /*** HANDLE INPUT ***/
   var KEY = {
@@ -224,6 +239,12 @@ function setupCanvas(ctx) {
     if (prevContextMenus) {
       e.preventDefault();
     }
+  });
+  var yScroll = 0;
+  var xScroll = 0;
+  window.addEventListener("wheel", function(e) {
+    yScroll = e.deltaY;
+    xScroll = e.deltaX;
   });
   
   function RGBAToHex(r,g,b,a) {
