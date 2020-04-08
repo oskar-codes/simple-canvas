@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full platformer game example</title>
+    <style>
+      body,html {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script src="../simple-canvas.js"></script>
+    <script>
+      var canvas = document.querySelector("canvas");
+      var ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      setupCanvas(ctx);
+
+      function init() {
+        window.x = canvas.width;
+        window.y = canvas.height - 300;
+        window.w = 30;
+        window.h = 30;
+        window.dx = 0;
+        window.dy = 0;
+        window.slashes = [];
+        window.slashTimer = 0;
+        window.canslash = true;
+
+        window.f = 0.86;
+        window.g = 1.6;
+        window.spd = 2.6;
+        window.jump = 26;
+        window.wJump = 20;
+
+        window.obstacles = [];
+        window.ground = {
+          x: 0,
+          y: canvas.height - 100,
+          w: canvas.width,
+          h: canvas.height,
+          dy: 0
+        }
+        window.ceiling = {
+          x: 0,
+          y: 0,
+          w: canvas.width,
+          h: 100,
+          dh: 0
+        }
+        window.gems = [];
+
+        window.space;
+      }
+
+      window.setInterval(function(e) {
+        obstacles.push({
+          x: canvas.width + 100,
+          y: Math.random() * canvas.height - 100,
+          w: Math.random() * 350 + 100,
+          h: Math.random() * 350 + 100
+        });
+      },500);
+
+      window.setInterval(function(e) {
+        gems.push({
+          x: canvas.width + 100,
+          y: Math.random() * canvas.height
+        })
+      },2000);
+
+      function update(deltaTime) {
+        window.fps = 1 / (deltaTime / 1000)
+
+        // x axis movement
+        if (btn("A")) {
+          dx -= spd;
+        }
+        if (btn("D")) {
+          dx += spd;
+        }
+
+        // apply friction
+        dx *= f;
+
+        // apply gravity
+        dy += g;
+
+        // collide left and right
+        let collision = collide(32,3);
+        if (dx > 0) {
+          if (collision.result) {
+            dx = 0;
+            if (Math.abs(x - collision.collider.x) < 50) {
+              x = collision.collider.x - 30;
+            }
+          }
+        }
+        if (dx < 0) {
+          let collision = collide(-2, 3);
+          if (collision.result) {
+            dx = 0;
+            if (Math.abs(x - (collision.collider.x + collision.collider.w)) < 50) {
+              x = collision.collider.x + collision.collider.w;
+            }
+          }
+        }
+
+        // collide up and down
+        if (dy > 0) {
+          let collision = collide(15,32);
+          if (collision.result) {
+            dy = 0;
+            if (Math.abs(y - collision.collider.y) < 50) {
+              y = collision.collider.y - 30;
+            }
+          }
+        } else if (dy < 0) {
+          let collision = collide(15, -2);
+          if (collision.result) {
+            dy = 2;
+            if (Math.abs(y - (collision.collider.y + collision.collider.h)) < 50) {
+              y = collision.collider.y + collision.collider.h;
+            }
+          }
+        }
+
+        // jump
+        if (btn("W")) {
+          if (collide(15,31).result) {
+            dy = -jump;
+            w = 15;
+            h = 45;
+          } else if (collide(-1,15).result) {
+            dy = -jump;
+            dx = wJump;
+            w = 15;
+            h = 45;
+          } else if (collide(31,15).result) {
+            dy = -jump;
+            dx = -wJump;
+            w = 15;
+            h = 45;
+          }
+        }
+        // get the width and height back to 30
+        w = lerp(w,30,0.05);
+        h = lerp(h,30,0.05);
+
+        // slash
+        if (!canslash) slashTimer += 1;
+        if (slashTimer > 600) {
+          console.log("boom")
+          slashTimer = 0;
+          canslash = true;
+        }
+        if (mousedown() && canslash) {
+          canslash = false;
+
+          var slashDx = mouse()[0] - x;
+          var slashDy = mouse()[1] - y;
+
+          var norm = Math.sqrt(slashDx**2 + slashDy**2);
+          
+          slashDx /= norm;
+          slashDy /= norm;
+
+          slashes.push({
+            x1: x + 15,
+            y1: y + 15,
+            x2: x + slashDx * 300 + 15,
+            y2: y + slashDy * 300 + 15,
+            w: 15
+          });
+
+          dx = slashDx * 60;
+          dy = slashDy * 60;
+        }
+        
+        // move the player
+        x -= 10;
+        x += dx;
+        y += dy;
+
+        // slightly move the ground and ceiling
+        ground.y -= 0.2;
+        ceiling.h += 0.2;
+
+        // push the ground and ceiling back (because of gem)
+        ceiling.h += ceiling.dh;
+        ground.y += ground.dy;
+
+        // apply friction to the delta
+        ceiling.dh *= 0.89;
+        ground.dy *= 0.89;
+
+        // background
+        cls("black");
+
+        // player
+        rectfill(x,y,w,h+10,"darkred");
+        rectfill(x,y,w,h,"red");
+
+        // gems
+        for (var i=0; i<gems.length; i++) {
+          var gem = gems[i];
+          gem.x -= 10;
+          circfill(gem.x,gem.y,10,"orange");
+
+          if (x + 30 > gem.x - 20 &&
+              x < gem.x + 20 &&
+              y + 30 > gem.y - 20 &&
+              y < gem.y + 20
+          ) {
+            gems.splice(i,1);
+            ground.dy = 4;
+            ceiling.dh = -4;
+          }
+        }
+
+        // obstacles
+        for (var i=0; i<=obstacles.length + 1; i++) {
+          var o = [...obstacles,ground,ceiling][i];
+
+          if (i !== obstacles.length && i !== obstacles.length + 1) o.x -= 10;
+
+          if (o.x + o.w < -10) {
+            obstacles.splice(i,1);
+          }
+
+          rectfill(o.x, o.y, o.w, o.h + 10,"darkred");
+          rectfill(o.x, o.y, o.w, o.h,"red");
+        }
+
+        // slashes
+        for (var i=0; i<slashes.length; i++) {
+          var s = slashes[i];
+          line(s.x1,s.y1,s.x2,s.y2,"orange",s.w);
+          s.w -= 1;
+          s.x1 -= 10;
+          s.x2 -= 10;
+          if (s.w <= 0) {
+            slashes.splice(i,1);
+          } 
+        }
+
+        rectfill(canvas.width / 2 - 200, canvas.height - 100, 400, 60, "#8b0000");
+        rectfill(canvas.width / 2 - 190, canvas.height - 90, slashTimer === 0 ? 380 : (slashTimer / (600)) * 380, 40, "#b00");
+        rectfill(canvas.width / 2 - 190, canvas.height - 90, slashTimer === 0 ? 380 : (slashTimer / (600)) * 380, 30, "#f00");
+      }
+
+      function collide(dirx,diry,fx,fy) {
+        for (var i=0; i<=obstacles.length + 1; i++) {
+          var o = [...obstacles,ground,ceiling][i];
+
+          var px = (fx || window.x) + dirx;
+          var py = (fy || window.y) + diry;
+          if (px > o.x &&
+              px < o.x + o.w &&
+              py > o.y &&
+              py < o.y + o.h
+          ) {
+            return {
+              result: true,
+              collider: o
+            };
+          }
+        }
+        return {
+          result: false,
+          collider: undefined
+        };
+      }
+
+      function lerp(start, end, t) {
+        return start * (1 - t) + end * t;
+      }
+    </script>
+  </body>
+</html>
