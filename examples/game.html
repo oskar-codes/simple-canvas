@@ -24,6 +24,9 @@
       setupCanvas(ctx);
 
       function init() {
+        preventcontextmenu();
+        cursor("crosshair");
+        
         window.x = canvas.width;
         window.y = canvas.height - 300;
         window.w = 30;
@@ -156,7 +159,7 @@
 
         // slash
         if (!canslash) slashTimer += 1;
-        if (slashTimer > 600) {
+        if (slashTimer > 300) {
           console.log("boom")
           slashTimer = 0;
           canslash = true;
@@ -252,8 +255,8 @@
         }
 
         rectfill(canvas.width / 2 - 200, canvas.height - 100, 400, 60, "#8b0000");
-        rectfill(canvas.width / 2 - 190, canvas.height - 90, slashTimer === 0 ? 380 : (slashTimer / (600)) * 380, 40, "#b00");
-        rectfill(canvas.width / 2 - 190, canvas.height - 90, slashTimer === 0 ? 380 : (slashTimer / (600)) * 380, 30, "#f00");
+        rectfill(canvas.width / 2 - 190, canvas.height - 90, slashTimer === 0 ? 380 : (slashTimer / 300) * 380, 40, "#b00");
+        rectfill(canvas.width / 2 - 190, canvas.height - 90, slashTimer === 0 ? 380 : (slashTimer / 300) * 380, 30, "#f00");
       }
 
       function collide(dirx,diry,fx,fy) {
