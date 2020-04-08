@@ -54,9 +54,9 @@ function udpate(deltaTime) {
 ```
 
 ## Examples
-- [Full platformer game example](https://oskar-codes.github.io/simple-canvas/examples/game.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/game.html)\]
+- [Full platformer game example](https://oskar-codes.github.io/simple-canvas/examples/full-platformer.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/full-platformer.html)\]
 - [Full shooter game example](https://oskar-codes.github.io/simple-canvas/examples/shooter.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/shooter.html)\]
 - [Rendering showcase](https://oskar-codes.github.io/simple-canvas/examples/rendering.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/rendering.html)\]
-- [Platformer game prototype](https://oskar-codes.github.io/simple-canvas/examples/platformer.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/platformer.html)\]
+- [Platformer game base](https://oskar-codes.github.io/simple-canvas/examples/platformer-base.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/platformer-base.html)\]
 - [Keyboard and mouse input demo](https://oskar-codes.github.io/simple-canvas/examples/input.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/input.html)\]
 - [Frame by frame animation example](https://oskar-codes.github.io/simple-canvas/examples/animation.html) \[[code](https://github.com/oskar-codes/simple-canvas/blob/master/examples/animation.html)\]
