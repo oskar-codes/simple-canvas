@@ -95,46 +95,48 @@
 
         // apply gravity
         dy += g;
+        
+        if (shouldCollide) {
+          // collide left and right
+          let collision = collide(32,3);
+          if (dx > 0) {
+            if (collision.result) {
+              dx = 0;
+              if (Math.abs(x - collision.collider.x) < 50) {
+                x = collision.collider.x - 30;
+              }
+            }
+          }
+          if (dx < 0) {
+            let collision = collide(-2, 3);
+            if (collision.result) {
+              dx = 0;
+              if (Math.abs(x - (collision.collider.x + collision.collider.w)) < 50) {
+                x = collision.collider.x + collision.collider.w;
+              }
+            }
+          }
 
-        // collide left and right
-        let collision = collide(32,3);
-        if (dx > 0) {
-          if (collision.result) {
-            dx = 0;
-            if (Math.abs(x - collision.collider.x) < 50) {
-              x = collision.collider.x - 30;
+          // collide up and down
+          if (dy > 0) {
+            let collision = collide(15,32);
+            if (collision.result) {
+              dy = 0;
+              if (Math.abs(y - collision.collider.y) < 50) {
+                y = collision.collider.y - 30;
+              }
+            }
+          } else if (dy < 0) {
+            let collision = collide(15, -2);
+            if (collision.result) {
+              dy = 2;
+              if (Math.abs(y - (collision.collider.y + collision.collider.h)) < 50) {
+                y = collision.collider.y + collision.collider.h;
+              }
             }
           }
         }
-        if (dx < 0) {
-          let collision = collide(-2, 3);
-          if (collision.result) {
-            dx = 0;
-            if (Math.abs(x - (collision.collider.x + collision.collider.w)) < 50) {
-              x = collision.collider.x + collision.collider.w;
-            }
-          }
-        }
-
-        // collide up and down
-        if (dy > 0) {
-          let collision = collide(15,32);
-          if (collision.result) {
-            dy = 0;
-            if (Math.abs(y - collision.collider.y) < 50) {
-              y = collision.collider.y - 30;
-            }
-          }
-        } else if (dy < 0) {
-          let collision = collide(15, -2);
-          if (collision.result) {
-            dy = 2;
-            if (Math.abs(y - (collision.collider.y + collision.collider.h)) < 50) {
-              y = collision.collider.y + collision.collider.h;
-            }
-          }
-        }
-
+        
         // jump
         if (btn("W")) {
           if (collide(15,31).result) {
@@ -223,8 +225,8 @@
               y < gem.y + 20
           ) {
             gems.splice(i,1);
-            ground.dy = 4;
-            ceiling.dh = -4;
+            ground.dy = 6.5;
+            ceiling.dh = -6.5;
           }
         }
 
