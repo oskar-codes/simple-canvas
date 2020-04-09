@@ -20,6 +20,7 @@
   <body>
     <canvas></canvas>
     <script src="../simple-canvas.js"></script>
+    <script src="howler.js"></script>
     <script>
       var canvas = document.querySelector("canvas");
       var context = canvas.getContext("2d");
@@ -85,6 +86,10 @@
 
           setTimeout(loop, spawnDelay);
         })();
+        
+        var shotSound = new Howl({
+          src: ["sfx_wpn_laser8.wav"]
+        });
       }
 
       function update(deltaTime) {
@@ -114,6 +119,7 @@
           }
         }
         if (mousedown() && canshoot && !isDead) {
+          shotSound.play();
           canshoot = false;
           var bulletDx = mouse()[0] - x;
           var bulletDy = mouse()[1] - y;
