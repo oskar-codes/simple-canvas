@@ -316,7 +316,7 @@
             }
             
             rectfill(canvas.width / 2 - 250, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
-            text(`Upgrade bullet count (${2**(ups[1]-1)})`, canvas.width / 2, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
+            text(`Upgrade bullet count (${ups[1]})`, canvas.width / 2, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
             text(`Level: ${ups[1]}`, canvas.width / 2, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
             
             if (collide({
@@ -329,9 +329,9 @@
               y: mouse()[1],
               w: 0,
               h: 0
-            }) && mousedown() && canclick && points >=  2**(ups[1]-1)) {
+            }) && mousedown() && canclick && points >= ups[1]) {
               ups[1] += 1;
-              points -= 2**(ups[1]-1);
+              points -= ups[1];
               localStorage.setItem("upgrades", ups.join(","));
               localStorage.setItem("upgradePoints", points);
             }
