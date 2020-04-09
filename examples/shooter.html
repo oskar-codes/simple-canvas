@@ -54,6 +54,10 @@
 
         window.shake = 0;
         window.backgroundColor = "#200";
+        window.gamePaused = false;
+        window.canPause = true;
+        window.soundOn = true;
+        window.visualEffectsOn = true;
 
         window.points = parseInt(localStorage.getItem("upgradePoints")) || 0;
         var ups = localStorage.getItem("upgrades") || "1,1,1";
@@ -96,279 +100,349 @@
         })();
         
         window.shotSound = new Howl({
-          src: ["sfx_wpn_laser8.wav"]
+          src: ["sfx_wpn_laser8.wav"],
+          volume: 0.5
         });
         
         window.explosionSound = new Howl({
-          src: ["sfx_exp_short_hard12.wav"]
+          src: ["sfx_exp_short_hard12.wav"],
+          volume: 0.5
         });
         
         window.deathSound = new Howl({
-          src: ["sfx_exp_medium1.wav"]
+          src: ["sfx_exp_medium1.wav"],
+          volume: 0.5
         });
       }
 
       function update(deltaTime) {
-        window.fps = 1 / (deltaTime / 1000);
-
-        if (btn("W")) dy -= spd;
-        if (btn("A")) dx -= spd;
-        if (btn("S")) dy += spd;
-        if (btn("D")) dx += spd;
-
-        dx *= f;
-        dy *= f;
-
-        if (!isDead) {
-          x += dx;
-          y += dy;
-        }
-
-        x = clamp(x,0,canvas.width - 40);
-        y = clamp(y,0,canvas.height - 40);
-
-        if (!canshoot) {
-          shootTimer += 1;
-          if (shootTimer >= fps / 7) {
-            canshoot = true;
-            shootTimer = 0;
-          }
-        }
-        if (mousedown() && canshoot && !isDead) {
-          shotSound.play();
-          canshoot = false;
-          var bulletDx = mouse()[0] - x;
-          var bulletDy = mouse()[1] - y;
-
-          var norm = Math.sqrt(bulletDx**2 + bulletDy**2);
-          
-          bulletDx /= norm;
-          bulletDy /= norm;
-
-          var angle = Math.atan2(bulletDx, -bulletDy);
-          angle -= Math.PI / 2;
-
-          for (var i=-bulletCount/2; i<bulletCount/2; i++) {
-            let newBulletDx = Math.cos(angle + i / 10) * bulletSpd;
-            let newBulletDy = Math.sin(angle + i / 10) * bulletSpd;
-            bullets.push({
-              x: x + 25,
-              y: y + 25,
-              dx: newBulletDx,
-              dy: newBulletDy
-          });
-          }
-
-          shake += 0.06;
-        }
-
-        cls(backgroundColor);
+        cls(visualEffectsOn ?  backgroundColor : "#200");
         backgroundColor = "#200";
 
-        context.textAlign = "center";
-        context.textBaseline = "middle";
-        text(score,canvas.width / 2, canvas.height / 2, "#3d0000", canvas.height);
+        updateShake();
+        
+        if (btn("ESC") && canPause) {
+            gamePaused = !gamePaused;
+        }
+        canPause = !btn("ESC");
+        
+        if (!gamePaused) {
+          window.fps = 1 / (deltaTime / 1000);
 
-        health += 0.1;
-        health = clamp(health,0,100);
-        rectfill(canvas.width / 2 - 200, canvas.height - 100, 400, 60, "#8b0000");
-        rectfill(canvas.width / 2 - 190, canvas.height - 90, (health / 100) * 380, 40, "#b00");
-        rectfill(canvas.width / 2 - 190, canvas.height - 90, (health / 100) * 380, 30, "#f00");
+          if (btn("W")) dy -= spd;
+          if (btn("A")) dx -= spd;
+          if (btn("S")) dy += spd;
+          if (btn("D")) dx += spd;
 
-        for (var i=0; i<enemies.length; i++) {
-          var e = enemies[i];
-
-          if (e.isHit) {
-            if (e.s / 2 > 25) {
-              for (var z=-1; z<=1; z+=2) {
-                enemies.push({
-                  x: e.x - 20 * z,
-                  y: e.y,
-                  s: e.s / 2,
-                  h: 1
-                })
-              }
-            }
-            enemies.splice(i,1);
-            if (!isDead) {
-              score += 1;
-              shake += 0.7;
-              explosionSound.play();
-            }
-          }
-
-          var edx = (x - e.s / 4) - e.x;
-          var edy = (y - e.s / 4) - e.y;
-
-          var norm = Math.sqrt(edx**2 + edy**2);
-
-          edx /= norm;
-          edy /= norm;
+          dx *= f;
+          dy *= f;
 
           if (!isDead) {
-            e.x += edx * 5;
-            e.y += edy * 5;
+            x += dx;
+            y += dy;
           }
 
-          var isHit = false;
-          for (var a=0; a<bullets.length; a++) {
-            var b = bullets[a];
-            if (b.x + 7 > e.x &&
-            b.x - 7 < e.x + e.s &&
-            b.y + 7 > e.y &&
-            b.y - 7 < e.y + e.s) {
-              isHit = true;
-              e.h -= 1;
-              if (e.h <= 0) {
-                e.isHit = true;
-                backgroundColor = "#c00"
-              }
+          x = clamp(x,0,canvas.width - 40);
+          y = clamp(y,0,canvas.height - 40);
+
+          if (!canshoot) {
+            shootTimer += 1;
+            if (shootTimer >= fps / 7) {
+              canshoot = true;
+              shootTimer = 0;
             }
           }
+          if (mousedown() && canshoot && !isDead) {
+            shotSound.play();
+            canshoot = false;
+            var bulletDx = mouse()[0] - x;
+            var bulletDy = mouse()[1] - y;
 
-          if (x + 30 > e.x &&
-            x < e.x + e.s &&
-            y + 30 > e.y &&
-            y < e.y + e.s) {
-              health -= 2;
-              if (health <= 0 && !isDead) {
-                deathSound.play();
-                isDead = true;
-                shake += 1;
-                window.points += Math.floor(score / 100);
-                localStorage.setItem("upgradePoints",points);
-                if (!localStorage.getItem("highscore") || score > parseInt(localStorage.getItem("highscore"))) {
-                  localStorage.setItem("highscore",score);
+            var norm = Math.sqrt(bulletDx**2 + bulletDy**2);
+            
+            bulletDx /= norm;
+            bulletDy /= norm;
+
+            var angle = Math.atan2(bulletDx, -bulletDy);
+            angle -= Math.PI / 2;
+
+            for (var i=-bulletCount/2; i<bulletCount/2; i++) {
+              let newBulletDx = Math.cos(angle + i / 10) * bulletSpd;
+              let newBulletDy = Math.sin(angle + i / 10) * bulletSpd;
+              bullets.push({
+                x: x + 25,
+                y: y + 25,
+                dx: newBulletDx,
+                dy: newBulletDy
+            });
+            }
+
+            shake += 0.06;
+          }
+
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          text(score,canvas.width / 2, canvas.height / 2, "#3d0000", canvas.height);
+
+          health += 0.1;
+          health = clamp(health,0,100);
+          rectfill(canvas.width / 2 - 200, canvas.height - 100, 400, 60, "#8b0000");
+          rectfill(canvas.width / 2 - 190, canvas.height - 90, (health / 100) * 380, 40, "#b00");
+          rectfill(canvas.width / 2 - 190, canvas.height - 90, (health / 100) * 380, 30, "#f00");
+
+          for (var i=0; i<enemies.length; i++) {
+            var e = enemies[i];
+
+            if (e.isHit) {
+              if (e.s / 2 > 25) {
+                for (var z=-1; z<=1; z+=2) {
+                  enemies.push({
+                    x: e.x - 20 * z,
+                    y: e.y,
+                    s: e.s / 2,
+                    h: 1
+                  })
+                }
+              }
+              enemies.splice(i,1);
+              if (!isDead) {
+                score += 1;
+                shake += 0.7;
+                explosionSound.play();
+              }
+            }
+
+            var edx = (x - e.s / 4) - e.x;
+            var edy = (y - e.s / 4) - e.y;
+
+            var norm = Math.sqrt(edx**2 + edy**2);
+
+            edx /= norm;
+            edy /= norm;
+
+            if (!isDead) {
+              e.x += edx * 5;
+              e.y += edy * 5;
+            }
+
+            var isHit = false;
+            for (var a=0; a<bullets.length; a++) {
+              var b = bullets[a];
+              if (b.x + 7 > e.x &&
+              b.x - 7 < e.x + e.s &&
+              b.y + 7 > e.y &&
+              b.y - 7 < e.y + e.s) {
+                isHit = true;
+                e.h -= 1;
+                if (e.h <= 0) {
+                  e.isHit = true;
+                  backgroundColor = "#c00"
                 }
               }
             }
 
-          rectfill(e.x,e.y,e.s,e.s+10,isHit ? "white" : "darkred");
-          rectfill(e.x,e.y,e.s,e.s,isHit ? "white" : "red");
-        }
+            if (x + 30 > e.x &&
+              x < e.x + e.s &&
+              y + 30 > e.y &&
+              y < e.y + e.s) {
+                health -= 2;
+                if (health <= 0 && !isDead) {
+                  deathSound.play();
+                  isDead = true;
+                  shake += 1;
+                  window.points += Math.floor(score / 100);
+                  localStorage.setItem("upgradePoints",points);
+                  if (!localStorage.getItem("highscore") || score > parseInt(localStorage.getItem("highscore"))) {
+                    localStorage.setItem("highscore",score);
+                  }
+                }
+              }
 
-        for (var i=0; i<bullets.length; i++) {
-          var b = bullets[i];
-
-          if (!isDead) {
-            b.x += b.dx;
-            b.y += b.dy;
+            rectfill(e.x,e.y,e.s,e.s+10,isHit ? "white" : "darkred");
+            rectfill(e.x,e.y,e.s,e.s,isHit ? "white" : "red");
           }
 
-          if (b.x < -10 || b.x > canvas.width + 10 || b.y < -10 || b.y > canvas.height + 10) bullets.splice(i, 1);
+          for (var i=0; i<bullets.length; i++) {
+            var b = bullets[i];
 
-          circfill(b.x,b.y+7,15,"darkred");
-          circfill(b.x,b.y,15,"red");
-        }
-
-        rectfill(x,y,30 + Math.abs(dx), 40 + Math.abs(dy),"darkred");
-        rectfill(x,y,30 + Math.abs(dx), 30 + Math.abs(dy),"red");
-
-        updateShake();
-
-        if (isDead) {
-          endY = lerp(endY,0,0.2);
-          rectfill(0,endY,canvas.width,canvas.height,"#180000");
-
-          if (endY > -10) {
-            endCol += 1;
-            endCol = clamp(endCol,24,255);
-            context.textAlign = "center";
-            context.textBaseline = "middle";
-            text("Game Over", canvas.width / 2, canvas.height / 2 - 200, `rgb(${endCol},0,0)`, 169);
-            text("Score: " + score + " Highscore: " + localStorage.getItem("highscore"), canvas.width / 2, canvas.height / 2 - 100, `rgb(${endCol},0,0)`, 40);
-            text("Press space to play again", canvas.width / 2, canvas.height / 2 - 50, `rgb(${endCol},0,0)`, 40);
-
-            var ups = localStorage.getItem("upgrades");
-
-            if (!ups) {
-              ups = [1,1,1]
-              localStorage.setItem("upgrades", ups.join(","));
-            } else {
-              ups = ups.split(",")
+            if (!isDead) {
+              b.x += b.dx;
+              b.y += b.dy;
             }
 
-            ups = ups.map(function(e) {
-              return parseInt(e);
-            })
+            if (b.x < -10 || b.x > canvas.width + 10 || b.y < -10 || b.y > canvas.height + 10) bullets.splice(i, 1);
 
-            text(`Upgrade points: ${points}`, canvas.width / 2, canvas.height / 2, `rgb(${endCol},0,0)`, 40);
-
-            rectfill(canvas.width / 2 - 850, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
-            text(`Upgrade bullet speed (1)`, canvas.width / 2 - 600, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
-            text(`Level: ${ups[0]}`, canvas.width / 2 - 600, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
-
-            if (collide({
-              x: canvas.width / 2 - 850,
-              y: canvas.height / 2 + 100,
-              w: 500,
-              h: 150
-            },{
-              x: mouse()[0],
-              y: mouse()[1],
-              w: 0,
-              h: 0
-            }) && mousedown() && canclick && points > 0) {
-              ups[0] += 1;
-              points -= 1;
-              localStorage.setItem("upgrades", ups.join(","));
-              localStorage.setItem("upgradePoints", points);
-            }
-            
-            rectfill(canvas.width / 2 - 250, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
-            text(`Upgrade bullet count (${ups[1]})`, canvas.width / 2, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
-            text(`Level: ${ups[1]}`, canvas.width / 2, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
-            
-            if (collide({
-              x: canvas.width / 2 - 250,
-              y: canvas.height / 2 + 100,
-              w: 500,
-              h: 150
-            },{
-              x: mouse()[0],
-              y: mouse()[1],
-              w: 0,
-              h: 0
-            }) && mousedown() && canclick && points >= ups[1]) {
-              ups[1] += 1;
-              points -= ups[1];
-              localStorage.setItem("upgrades", ups.join(","));
-              localStorage.setItem("upgradePoints", points);
-            }
-            
-            rectfill(canvas.width / 2 + 350, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
-            text(`Upgrade movement speed (1)`, canvas.width / 2 + 600, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
-            text(`Level: ${ups[2]}`, canvas.width / 2 + 600, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
-
-            if (collide({
-              x: canvas.width / 2 + 350,
-              y: canvas.height / 2 + 100,
-              w: 500,
-              h: 150
-            },{
-              x: mouse()[0],
-              y: mouse()[1],
-              w: 0,
-              h: 0
-            }) && mousedown() && canclick && points > 0) {
-              ups[2] += 1;
-              points -= 1;
-              localStorage.setItem("upgrades", ups.join(","));
-              localStorage.setItem("upgradePoints", points);
-            }
-
-            if (btn("SPACE") && canRestart) {
-              window.location.reload();
-            }
-            canclick = !mousedown();
+            circfill(b.x,b.y+7,15,"darkred");
+            circfill(b.x,b.y,15,"red");
           }
 
+          rectfill(x,y,30 + Math.abs(dx), 40 + Math.abs(dy),"darkred");
+          rectfill(x,y,30 + Math.abs(dx), 30 + Math.abs(dy),"red");
+
+          if (isDead) {
+            endY = lerp(endY,0,0.2);
+            rectfill(0,endY,canvas.width,canvas.height,"#180000");
+
+            if (endY > -10) {
+              endCol += 1;
+              endCol = clamp(endCol,24,255);
+              context.textAlign = "center";
+              context.textBaseline = "middle";
+              text("Game Over", canvas.width / 2, canvas.height / 2 - 200, `rgb(${endCol},0,0)`, 169);
+              text("Score: " + score + " Highscore: " + localStorage.getItem("highscore"), canvas.width / 2, canvas.height / 2 - 100, `rgb(${endCol},0,0)`, 40);
+              text("Press space to play again", canvas.width / 2, canvas.height / 2 - 50, `rgb(${endCol},0,0)`, 40);
+
+              var ups = localStorage.getItem("upgrades");
+
+              if (!ups) {
+                ups = [1,1,1]
+                localStorage.setItem("upgrades", ups.join(","));
+              } else {
+                ups = ups.split(",")
+              }
+
+              ups = ups.map(function(e) {
+                return parseInt(e);
+              })
+
+              text(`Upgrade points: ${points}`, canvas.width / 2, canvas.height / 2, `rgb(${endCol},0,0)`, 40);
+
+              rectfill(canvas.width / 2 - 850, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
+              text(`Upgrade bullet speed`, canvas.width / 2 - 600, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
+              text(`Level: ${ups[0]}`, canvas.width / 2 - 600, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
+
+              if (collide({
+                x: canvas.width / 2 - 850,
+                y: canvas.height / 2 + 100,
+                w: 500,
+                h: 150
+              },{
+                x: mouse()[0],
+                y: mouse()[1],
+                w: 0,
+                h: 0
+              }) && mousedown() && canclick && points > 0) {
+                ups[0] += 1;
+                points -= 1;
+                localStorage.setItem("upgrades", ups.join(","));
+                localStorage.setItem("upgradePoints", points);
+              }
+              
+              rectfill(canvas.width / 2 - 250, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
+              text(`Upgrade bullet count`, canvas.width / 2, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
+              text(`Level: ${ups[1]}`, canvas.width / 2, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
+              
+              if (collide({
+                x: canvas.width / 2 - 250,
+                y: canvas.height / 2 + 100,
+                w: 500,
+                h: 150
+              },{
+                x: mouse()[0],
+                y: mouse()[1],
+                w: 0,
+                h: 0
+              }) && mousedown() && canclick && points > 0) {
+                ups[1] += 1;
+                points -= 1;
+                localStorage.setItem("upgrades", ups.join(","));
+                localStorage.setItem("upgradePoints", points);
+              }
+              
+              rectfill(canvas.width / 2 + 350, canvas.height / 2 + 100, 500, 150, `rgb(${endCol-100},0,0)`)
+              text(`Upgrade movement speed`, canvas.width / 2 + 600, canvas.height / 2 + 150, `rgb(${endCol},0,0)`, 40);
+              text(`Level: ${ups[2]}`, canvas.width / 2 + 600, canvas.height / 2 + 200, `rgb(${endCol},0,0)`, 40);
+
+              if (collide({
+                x: canvas.width / 2 + 350,
+                y: canvas.height / 2 + 100,
+                w: 500,
+                h: 150
+              },{
+                x: mouse()[0],
+                y: mouse()[1],
+                w: 0,
+                h: 0
+              }) && mousedown() && canclick && points > 0) {
+                ups[2] += 1;
+                points -= 1;
+                localStorage.setItem("upgrades", ups.join(","));
+                localStorage.setItem("upgradePoints", points);
+              }
+
+              if (btn("SPACE")) {
+                window.location.reload();
+              }
+            }
+
+          }
+        } else {
+          var cx = canvas.width / 2;
+          var cy = canvas.height / 2;
+
+          circfill(cx, cy+10, 100, "#700");
+          circfill(cx, cy, 100, "#a00");
+          text("Resume", cx, cy, "white", 35);
+
+          if (collide({
+            x: cx - 100,
+            y: cy - 100,
+            w: 200,
+            h: 200
+          },{
+            x: mouse()[0],
+            y: mouse()[1],
+            w: 0,
+            h: 0
+          }) && mousedown() && canclick) {
+            gamePaused = false;
+          }
+
+          circfill(cx - 400, cy+10, 100, "#700");
+          circfill(cx - 400, cy, 100, "#a00");
+          text("Sound", cx - 400, cy - 25, "white", 35);
+          text(soundOn ? "off" : "on", cx - 400, cy + 25, "white", 35);
+
+          if (collide({
+            x: cx - 500,
+            y: cy - 100,
+            w: 200,
+            h: 200
+          },{
+            x: mouse()[0],
+            y: mouse()[1],
+            w: 0,
+            h: 0
+          }) && mousedown() && canclick) {
+            soundOn = !soundOn;
+            Howler.volume(soundOn ? 1 : 0);
+          }
+
+          circfill(cx + 400, cy+10, 100, "#700");
+          circfill(cx + 400, cy, 100, "#a00");
+          text("Visual", cx + 400, cy - 50, "white", 35);
+          text("effects", cx + 400, cy, "white", 35);
+          text(visualEffectsOn ? "off" : "on", cx + 400, cy + 50, "white", 35);
+
+          if (collide({
+            x: cx + 300,
+            y: cy - 100,
+            w: 200,
+            h: 200
+          },{
+            x: mouse()[0],
+            y: mouse()[1],
+            w: 0,
+            h: 0
+          }) && mousedown() && canclick) {
+            visualEffectsOn = !visualEffectsOn;
+          }
         }
-        window.canRestart = !mousedown();
+        window.canclick = !mousedown();
       }
 
       function updateShake() {
-        shake = Math.min(shake,2);
+        shake = Math.min(shake,visualEffectsOn ? 2 : 0);
 
         var shakex = 13 - Math.random() * 26;
         var shakey = 13 - Math.random() * 26;
