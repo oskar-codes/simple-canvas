@@ -90,6 +90,10 @@
         window.shotSound = new Howl({
           src: ["sfx_wpn_laser8.wav"]
         });
+        
+        window.explosionSound = new Howl({
+          src: ["sfx_exp_short_hard12.wav"]
+        });
       }
 
       function update(deltaTime) {
@@ -169,7 +173,8 @@
             enemies.splice(i,1);
             if (!isDead) {
               score += 1;
-              shake += 0.7
+              shake += 0.7;
+              explosionSound.play();
             }
           }
 
