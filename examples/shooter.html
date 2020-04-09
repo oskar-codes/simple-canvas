@@ -94,6 +94,10 @@
         window.explosionSound = new Howl({
           src: ["sfx_exp_short_hard12.wav"]
         });
+        
+        window.deathSound = new Howl({
+          src: ["sfx_exp_medium1.wav"]
+        });
       }
 
       function update(deltaTime) {
@@ -213,6 +217,7 @@
             y < e.y + e.s) {
               health -= 2;
               if (health <= 0 && !isDead) {
+                deathSound.play();
                 isDead = true;
                 shake += 1;
                 if (!localStorage.getItem("highscore") || score > parseInt(localStorage.getItem("highscore"))) {
