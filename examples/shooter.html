@@ -329,9 +329,9 @@
               y: mouse()[1],
               w: 0,
               h: 0
-            }) && mousedown() && canclick && points > 0) {
+            }) && mousedown() && canclick && points >=  2**(ups[1]-1)) {
               ups[1] += 1;
-              points -= 1;
+              points -= 2**(ups[1]-1);
               localStorage.setItem("upgrades", ups.join(","));
               localStorage.setItem("upgradePoints", points);
             }
