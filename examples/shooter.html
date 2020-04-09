@@ -81,7 +81,7 @@
           });
 
           spawnDelay *= 0.975;
-          spawnDelay = Math.max(spawnDelay,300);
+          spawnDelay = Math.max(spawnDelay,400);
 
           setTimeout(loop, spawnDelay);
         })();
@@ -189,6 +189,7 @@
             b.y - 7 < e.y + e.s) {
               isHit = true;
               e.h -= 1;
+              bullets.splice(a,1);
               if (e.h <= 0) {
                 e.isHit = true;
                 backgroundColor = "#c00"
@@ -203,6 +204,7 @@
               health -= 2;
               if (health <= 0) {
                 isDead = true;
+                shake += 1;
                 if (!localStorage.getItem("highscore") || score > parseInt(localStorage.getItem("highscore"))) {
                   localStorage.setItem("highscore",score);
                 }
