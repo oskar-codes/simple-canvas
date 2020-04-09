@@ -81,6 +81,7 @@
           });
 
           spawnDelay *= 0.975;
+          spawnDelay = Math.max(spawnDelay,300);
 
           setTimeout(loop, spawnDelay);
         })();
