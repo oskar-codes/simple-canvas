@@ -352,8 +352,8 @@
                 w: 0,
                 h: 0
               }) && mousedown() && canclick && points >= ups[1]) {
-                ups[1] += 1;
                 points -= ups[1];
+                ups[1] += 1;
                 localStorage.setItem("upgrades", ups.join(","));
                 localStorage.setItem("upgradePoints", points);
               }
