@@ -86,14 +86,15 @@
           ]];
           var sizes = [150,100,75,50];
           var spawn = spawns[Math.floor(Math.random() * 4)];
-          enemies.push({
-            x: spawn[0],
-            y: spawn[1],
-            s: sizes[Math.floor(Math.random() * 4)],
-            h: 3
-          });
-
-          spawnDelay *= 0.975;
+          if (!isDead) {
+            enemies.push({
+              x: spawn[0],
+              y: spawn[1],
+              s: sizes[Math.floor(Math.random() * 4)],
+              h: 3
+            });
+            spawnDelay *= 0.975;
+          }
           spawnDelay = Math.max(spawnDelay,100);
 
           setTimeout(loop, spawnDelay);
@@ -387,6 +388,13 @@
         } else {
           var cx = canvas.width / 2;
           var cy = canvas.height / 2;
+          
+          var mouseObj = {
+            x: mouse()[0],
+            y: mouse()[1],
+            w: 0,
+            h: 0
+          }
 
           circfill(cx, cy+10, 100, "#700");
           circfill(cx, cy, 100, "#a00");
@@ -397,12 +405,7 @@
             y: cy - 100,
             w: 200,
             h: 200
-          },{
-            x: mouse()[0],
-            y: mouse()[1],
-            w: 0,
-            h: 0
-          }) && mousedown() && canclick) {
+          },mouseObj) && mousedown() && canclick) {
             gamePaused = false;
           }
 
@@ -416,12 +419,7 @@
             y: cy - 100,
             w: 200,
             h: 200
-          },{
-            x: mouse()[0],
-            y: mouse()[1],
-            w: 0,
-            h: 0
-          }) && mousedown() && canclick) {
+          },mouseObj) && mousedown() && canclick) {
             soundOn = !soundOn;
             Howler.volume(soundOn ? 1 : 0);
           }
@@ -437,13 +435,23 @@
             y: cy - 100,
             w: 200,
             h: 200
-          },{
-            x: mouse()[0],
-            y: mouse()[1],
-            w: 0,
-            h: 0
-          }) && mousedown() && canclick) {
+          },mouseObj) && mousedown() && canclick) {
             visualEffectsOn = !visualEffectsOn;
+          }
+          
+          rectfill(cx - 300, cy + 200, 600, 210, "#700");
+          rectfill(cx - 300, cy + 200, 600, 200, "#a00");
+          text("Reset progress", cx, cy + 220, "white", 35);
+          
+          if (collide({
+            x: cx - 300,
+            y: cy + 200,
+            w: 600,
+            h: 200
+          },mouseObj) && mousedown() && canclick) {
+            localStorage.setItem("upgrades", "1,1,1");
+            localStorage.setItem("upgradePoints", "0");
+            window.location.reload();
           }
         }
         window.canclick = !mousedown();
