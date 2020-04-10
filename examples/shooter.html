@@ -113,6 +113,14 @@
           src: ["sfx_exp_medium1.wav"],
           volume: 0.5
         });
+        
+        window.music = new Howl({
+          src: ["music.mp3"],
+          volume: 0.5,
+          loop: true
+        });
+        
+        music.play();
       }
 
       function update(deltaTime) {
