@@ -439,15 +439,15 @@
             visualEffectsOn = !visualEffectsOn;
           }
           
-          rectfill(cx - 300, cy + 200, 600, 210, "#700");
-          rectfill(cx - 300, cy + 200, 600, 200, "#a00");
-          text("Reset progress", cx, cy + 220, "white", 35);
+          rectfill(cx - 200, cy + 200, 400, 100, "#700");
+          rectfill(cx - 200, cy + 200, 400, 90, "#a00");
+          text("Reset progress", cx, cy + 250, "white", 35);
           
           if (collide({
-            x: cx - 300,
+            x: cx - 200,
             y: cy + 200,
-            w: 600,
-            h: 200
+            w: 400,
+            h: 90
           },mouseObj) && mousedown() && canclick) {
             localStorage.setItem("upgrades", "1,1,1");
             localStorage.setItem("upgradePoints", "0");
