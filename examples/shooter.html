@@ -65,6 +65,10 @@
           options = options.split(",");
           soundOn = JSON.parse(options[0]);
           visualEffectsOn = JSON.parse(options[1]);
+          
+          if (!soundOn) {
+            Howler.volume(0);
+          }
         }
 
         window.points = parseInt(localStorage.getItem("upgradePoints")) || 0;
