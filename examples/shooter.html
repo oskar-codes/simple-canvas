@@ -58,6 +58,14 @@
         window.canPause = true;
         window.soundOn = true;
         window.visualEffectsOn = true;
+        
+        var options = localStorage.getItem("options");
+        
+        if (!!options) {
+          options = options.split(",");
+          soundOn = JSON.parse(options[0]);
+          visualEffectsOn = JSON.parse(options[1]);
+        }
 
         window.points = parseInt(localStorage.getItem("upgradePoints")) || 0;
         var ups = localStorage.getItem("upgrades") || "1,1,1";
@@ -453,6 +461,8 @@
             localStorage.setItem("upgradePoints", "0");
             window.location.reload();
           }
+          
+          localStorage.setItem("options", soundOn + "," + visualEffectsOn);
         }
         window.canclick = !mousedown();
       }
