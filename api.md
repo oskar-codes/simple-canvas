@@ -15,7 +15,7 @@ rect(100, 100, 50, 30, "red", 10); // red rectangle of size 50x30 with a 10px bo
 rect(20, 30, 100, 200, "#3498db"); // lightblue rectangle of size 100x200 with the default border width
 ```
 
-### rectfill(x1, y1, x2, y2, [color])
+### rectfill(x1, y1, w, h, [color])
 Draws a filled rectangle from x1, y1 to x2, y2, using the optional color. Color is black if omitted.
 ```javascript
 rectfill(100, 100, 50, 30, "red"); // red filled rectangle of size 50x30
